@@ -1,12 +1,33 @@
-git # todo
+# Todo project
+A simple website demonstrating CRUD with Backand, built using [yeoman](http://yeoman.io/) for Angular
 
-This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
-version 0.11.1.
+## Prerequisites
+You will need:
+* [Git](http://git-scm.com/)
+* [NodeJS and NPM](https://gist.github.com/isaacs/579814)
+* [Server side REST API](https://www.backand.com)
 
-## Build & development
+## Getting Started
+1. Run the following commands
 
-Run `grunt` for building and `grunt serve` for preview.
+  ```bash
+  git clone https://github.com/backand/angular-yeoman-todos.git
+  cd angular-yeoman-todos
+
+  npm install
+  bower install
+  grunt serve
+  ```
+
+2. Navigate to [localhost:9000](http://localhost:9000).
+
+3. Hooray! Now you can interact with API running on Backand! How simple was that??
 
 ## Testing
 
 Running `grunt test` will run the unit tests with karma.
+
+### Running your own API server
+
+If you would like to run your own api, then sign-up to [Backand](https://wwww.backand.com) and create new app
+
