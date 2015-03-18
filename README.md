@@ -1,4 +1,4 @@
-# Todo project
+# Todo Project
 A simple website demonstrating CRUD with Backand, built using [yeoman](http://yeoman.io/) for Angular
 
 ## Prerequisites
