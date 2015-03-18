@@ -1,6 +1,7 @@
 # general
 .idea
 .DS_Store
+.tmp/**
 
 # package control
 node_modules
