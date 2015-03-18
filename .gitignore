@@ -1,0 +1,14 @@
+# general
+.idea
+.DS_Store
+
+# package control
+node_modules
+bower_components
+
+# logs
+npm-debug.log
+
+# build
+dist
+

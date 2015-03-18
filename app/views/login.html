@@ -1,0 +1,16 @@
+<!-- Backand Login model -->
+<div class="modal-header">
+    <h3 class="modal-title">Backand Login</h3>
+    <h5>Use your Backand username and password to login</h5>
+</div>
+<div class="modal-body clearfix">
+    <div class="form-group col-lg-12 col-md-12 col-sm-12">
+        <input type="text" ng-model="username" class="form-control">
+        <input type="password" ng-model="password" class="form-control">
+        <input type="text" ng-model="appName" class="form-control">
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="signIn()">Log in</button>
+    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+</div>
