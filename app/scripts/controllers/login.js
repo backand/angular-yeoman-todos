@@ -23,8 +23,9 @@ angular.module('mytodoApp')
                     $cookieStore.put(Backand.configuration.tokenName, token);
                     $location.path('/');
                 },
-                function (data, status, headers, config) {
+                function (data) {
                     console.log(data);
+                    $scope.error = data.error_description;
                 }
             );
         }
