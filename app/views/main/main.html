@@ -21,6 +21,9 @@
             ng-repeat="todo in vm.todos | orderBy:'-id'"
             style="padding:5px 10px; cursor: move;"
             ng-class="{'todo-completed': todo.completed}">
+            <span class="input-group-btn">
+                <button class="btn"><input type="checkbox" class="btn btn-primary" ng-model="todo.completed" ng-click="vm.updateTodo(todo)"></button>
+            </span>
             <input  type="text"
                     ng-disabled="todo.completed"
                     ng-model="todo.description"
@@ -29,9 +32,6 @@
                     class="form-control" >
             <span class="input-group-btn">
                 <button class="btn btn-danger" ng-click="vm.removeTodo(todo)" aria-label="Remove">X</button>
-                <button class="btn">
-                    <input type="checkbox" class="btn btn-primary" ng-model="todo.completed" ng-click="vm.toggleTodo(todo)">
-                </button>
             </span>
         </p>
     </div>

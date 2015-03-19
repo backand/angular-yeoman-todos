@@ -3,7 +3,7 @@
  */
 (function () {
 
-    function BackandService($http, Backand) {
+    function BackandService($http, $cookieStore, Backand) {
 
         var self = this;
         var baseUrl = '/1/table/data/';
@@ -61,8 +61,13 @@
             })
         };
 
+        self.logout = function(){
+            Backand.signout();
+            $cookieStore.remove(Backand.configuration.tokenName);
+        }
+
     }
 
     angular.module('mytodoApp')
-        .service('BackandService', ['$http', 'Backand', BackandService]);
+        .service('BackandService', ['$http', '$cookieStore', 'Backand', BackandService]);
 }());

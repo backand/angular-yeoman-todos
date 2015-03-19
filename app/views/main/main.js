@@ -8,7 +8,7 @@
      * Main controller of the todoApp fot viewing and adding to do items
      */
 
-    function MainCtrl($cookieStore, Backand, BackandService, $window) {
+    function MainCtrl($location, BackandService) {
         var self = this;
 
         /**
@@ -69,6 +69,14 @@
         };
 
         /**
+         * Logout from Backand
+         */
+        self.logout = function () {
+            BackandService.logout();
+            $location.path('/login');
+        }
+
+        /**
          * Handle promise error call
          * @param error
          * @param message
@@ -77,18 +85,7 @@
             console.log(error);
         }
 
-        /**
-         * toggle completion of todo
-         */
-        self.toggleTodo = function (todo) {
-            self.updateTodo(todo);
-        }
 
-        self.logout = function () {
-            Backand.signout();
-            $cookieStore.remove(Backand.configuration.tokenName);
-            $window.location.reload();
-        }
 
         init();
     }
