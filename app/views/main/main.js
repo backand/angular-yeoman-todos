@@ -39,7 +39,7 @@
          * @param todo
          */
         self.updateTodo = function (todo){
-            BackandService.update(todo.id, todo).then(null, errorHandler);
+            BackandService.update(todo.Id, todo).then(null, errorHandler);
         };
 
         /**
@@ -63,7 +63,7 @@
          * @param todo
          */
         self.removeTodo = function (todo) {
-            BackandService.delete(todo.id).then(function() {
+            BackandService.delete(todo.Id).then(function() {
                 self.todos.splice(self.todos.indexOf(todo), 1);
             }, errorHandler);
         };

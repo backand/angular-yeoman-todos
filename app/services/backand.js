@@ -15,10 +15,7 @@
                 method: 'GET',
                 url: Backand.configuration.apiUrl + baseUrl + self.tableName
             }).then(function(response) {
-                return response.data.data.map(function(todo) {
-                    todo.id = parseInt(todo.id);
-                    return todo;
-                });
+                return response.data.data;
             });
         };
 
