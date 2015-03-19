@@ -14,6 +14,11 @@
             return $http({
                 method: 'GET',
                 url: Backand.configuration.apiUrl + baseUrl + self.tableName
+            }).then(function(response) {
+                return response.data.data.map(function(todo) {
+                    todo.id = parseInt(todo.id);
+                    return todo;
+                });
             });
         };
 
@@ -21,6 +26,8 @@
             return $http({
                 method: 'GET',
                 url: Backand.configuration.apiUrl + baseUrl + self.tableName + '/' + id
+            }).then(function(response) {
+                return response.data;
             });
         };
 
@@ -32,7 +39,9 @@
                 params: {
                     returnObject: true
                 }
-            })
+            }).then(function(response) {
+                return response.data;
+            });
         };
 
         self.update = function (id, data) {
@@ -40,7 +49,9 @@
                 method: 'PUT',
                 url : Backand.configuration.apiUrl + baseUrl + self.tableName + '/' + id,
                 data: data
-            })
+            }).then(function(response) {
+                return response.data;
+            });
         };
 
         self.delete = function (id) {

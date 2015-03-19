@@ -15,7 +15,7 @@
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,app}) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="assets/styles/main.css">
     <!-- endbuild -->
   </head>
   <body ng-app="mytodoApp">
@@ -24,7 +24,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container" ng-view=""></div>
+    <div class="container" ui-view></div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -56,6 +56,7 @@
     <script src="bower_components/jquery-ui/jquery-ui.js"></script>
     <script src="bower_components/angular-ui-sortable/sortable.js"></script>
     <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -63,11 +64,11 @@
     <script src="//cdn.backand.net/backand/dist/1.5.1/backand.min.js"></script>
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="scripts/app.js"></script>
-    <script src="scripts/controllers/main.js"></script>
-    <script src="scripts/controllers/login.js"></script>
-    <script src="scripts/services/backand.js"></script>
-    <script src="scripts/common/interceptors/httpInterceptor.js"></script>
+    <script src="app.js"></script>
+    <script src="views/main/main.js"></script>
+    <script src="views/login/login.js"></script>
+    <script src="services/backand.js"></script>
+    <script src="config/interceptors/httpInterceptor.js"></script>
     <!-- endbuild -->
 
 </body>
