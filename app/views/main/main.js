@@ -8,7 +8,7 @@
      * Main controller of the todoApp fot viewing and adding to do items
      */
 
-    function MainCtrl($location, BackandService) {
+    function MainCtrl($window, BackandService) {
         var self = this;
 
         /**
@@ -73,7 +73,7 @@
          */
         self.logout = function () {
             BackandService.logout();
-            $location.path('/login');
+            $window.location.reload();
         }
 
         /**
