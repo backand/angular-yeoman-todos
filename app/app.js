@@ -7,11 +7,11 @@ angular.module('mytodoApp', [
   'ui.router',
   'ui.sortable',
   'LocalStorageModule',
-  'common.interceptors.http',
+  'mytodoApp.config.interceptors',
   'backand'
 ])
   .config(['$stateProvider','$httpProvider', '$urlRouterProvider', function($stateProvider, $httpProvider, $urlRouterProvider) {
-    $httpProvider.interceptors.push('httpInterceptor');
+    $httpProvider.interceptors.push('todoHttpInterceptor');
     $urlRouterProvider.otherwise("/");
     $stateProvider
       .state('todos', {

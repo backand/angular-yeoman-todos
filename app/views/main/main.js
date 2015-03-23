@@ -8,14 +8,14 @@
      * Main controller of the todoApp fot viewing and adding to do items
      */
 
-    function MainCtrl($window, BackandService) {
+    function MainCtrl($state, TodoService) {
         var self = this;
 
         /**
          * init by reading the to do list from the database
          */
         function init() {
-            BackandService.tableName = 'todo';
+            TodoService.tableName = 'todo';
             readTodoList();
         }
 
@@ -23,7 +23,7 @@
          * Read the to do list from the database
          */
         function readTodoList(){
-            BackandService.readAll().then(onReadListSuccess, errorHandler);
+            TodoService.readAll().then(onReadListSuccess, errorHandler);
         }
 
         /**
@@ -39,14 +39,14 @@
          * @param todo
          */
         self.updateTodo = function (todo){
-            BackandService.update(todo.Id, todo).then(null, errorHandler);
+            TodoService.update(todo.Id, todo).then(null, errorHandler);
         };
 
         /**
          * Add new item
          */
         self.addTodo = function () {
-            BackandService.create({description: self.todo}).then(onAddTodoSuccess, errorHandler);
+            TodoService.create({description: self.todo}).then(onAddTodoSuccess, errorHandler);
             self.todo = '';
         };
 
@@ -63,7 +63,7 @@
          * @param todo
          */
         self.removeTodo = function (todo) {
-            BackandService.delete(todo.Id).then(function() {
+            TodoService.delete(todo.Id).then(function() {
                 self.todos.splice(self.todos.indexOf(todo), 1);
             }, errorHandler);
         };
@@ -72,8 +72,8 @@
          * Logout from Backand
          */
         self.logout = function () {
-            BackandService.logout();
-            $window.location.reload();
+            TodoService.logout();
+            $state.go('login');
         }
 
         /**
