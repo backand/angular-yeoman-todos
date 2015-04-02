@@ -10,7 +10,8 @@ angular.module('mytodoApp', [
   'mytodoApp.config.interceptors',
   'backand'
 ])
-  .config(['$stateProvider','$httpProvider', '$urlRouterProvider', function($stateProvider, $httpProvider, $urlRouterProvider) {
+  .config(['$stateProvider','$httpProvider', '$urlRouterProvider', 'BackandProvider', function($stateProvider, $httpProvider, $urlRouterProvider, BackandProvider) {
+    BackandProvider.manageDefaultHeaders();
     $httpProvider.interceptors.push('todoHttpInterceptor');
     $urlRouterProvider.otherwise("/");
     $stateProvider
