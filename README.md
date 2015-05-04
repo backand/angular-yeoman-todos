@@ -67,9 +67,9 @@ You will need:
       and then on the Edit Action button.
       This action is triggered tight after a Backand user is created, but not yet committed, which means that if the action that you created will fail to execute the entire transaction will rollback.
       Change the following script:  
-          ```sql
-          insert into `<your table name>` (`email`,`name`,`role`, ....) values ('{{Username}}','{{FirstName}}','{{durados_User_Role}}',....) 
-          ```  
+      ```sql
+      insert into `<your table name>` (`email`,`name`,`role`, ....) values ('{{Username}}','{{FirstName}}','{{durados_User_Role}}',....) 
+      ```  
       to  
       ```sql
       insert into `users` (`email`,`name`,`role`) values ('{{Username}}','{{FirstName}}','{{durados_User_Role}}') 
