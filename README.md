@@ -40,7 +40,7 @@ You will need:
   1.Security & Auth 
   Go to the Security & Auth --> Configuration page
     1. Enable Anonymous Access 
-    In the Anonymous Access (first section on the page) swith to enable.
+    *  In the Anonymous Access (first section on the page) swith to enable.
     In the select options chose ReadOnly.
     This means that users can access without username and password and they will be assigned with a ReadOnly role
     2. New Users Role 
