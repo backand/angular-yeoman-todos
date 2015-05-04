@@ -66,32 +66,32 @@ You will need:
       On the Security & Auth page go to Actions --> Create --> and click on Create My App User
       and then on the Edit Action button.
       This action is triggered tight after a Backand user is created, but not yet committed, which means that if the action that you created will fail to execute the entire transaction will rollback.
-      Change the following script: 
+      Change the following script:  
       '''sql
       insert into `<your table name>` (`email`,`name`,`role`, ....) values ('{{Username}}','{{FirstName}}','{{durados_User_Role}}',....) 
       '''
-      to
+      to  
       '''sql
       insert into `users` (`email`,`name`,`role`) values ('{{Username}}','{{FirstName}}','{{durados_User_Role}}') 
       '''
       Change the Where Condition to true
       2. **Update My App User**  
       The exact same goes to Actions --> Update --> and click on Update My App User
-      and change:
+      and change:  
       '''sql
       update `<your table name>` set `name` = '{{FirstName}}',  `role` = '{{durados_User_Role}}'.... where `email` = '{{Username}}'
       '''
-      to
+      to  
       '''sql
       update `users` set `name` = '{{FirstName}}',  `role` = '{{durados_User_Role}}' where `email` = '{{Username}}'
       '''
       3. **Delete My App User**  
       The exact same goes to Actions --> Delete --> and click on Delete My App User
-      and change:
+      and change:  
       '''sql
       delete `<your table name>` where `email` = '{{Username}}'
       '''
-      to
+      to  
       '''sql
       delete `users` where `email` = '{{Username}}'
       '''
