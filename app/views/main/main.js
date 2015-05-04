@@ -8,15 +8,25 @@
      * Main controller of the todoApp fot viewing and adding to do items
      */
 
-    function MainCtrl($state, TodoService) {
+    function MainCtrl($state, $cookieStore, TodoService) {
         var self = this;
 
+        self.currentUserInfo = null;
+        self.currentUser = null;
+        self.signInTitle = "Sign In";
         /**
          * init by reading the to do list from the database
          */
         function init() {
+            
             TodoService.tableName = 'todo';
             readTodoList();
+
+            self.currentUser = TodoService.getCurrentUser();
+            if (self.currentUser) {
+                getCurrentUserInfo();
+                self.signInTitle = "Log out";
+            }
         }
 
         /**
@@ -46,7 +56,7 @@
          * Add new item
          */
         self.addTodo = function () {
-            TodoService.create({description: self.todo}).then(onAddTodoSuccess, errorHandler);
+            TodoService.create({ description: self.todo, users: self.currentUserInfo.id }).then(onAddTodoSuccess, errorHandler);
             self.todo = '';
         };
 
@@ -85,8 +95,23 @@
             console.log(error);
         }
 
+        function getCurrentUserInfo() {
+            return TodoService.getCurrentUserInfo().then(function (data) {
+                self.currentUserInfo = data;
+            });
+        }
 
+        self.getCurrentUserName = function () {
+            if (!self.currentUser)
+                return "Guest";
+            if (self.currentUserInfo)
+                return self.currentUserInfo.name;
+            else
+                return null;
+            
+        }
 
+        
         init();
     }
 

@@ -6,7 +6,7 @@
     function TodoService($http, $cookieStore, Backand) {
 
         var self = this;
-        var baseUrl = Backand.getApiUrl() + '/1/table/data/';
+        var baseUrl = Backand.getApiUrl() + '/1/objects/';
 
         self.tableName = null;
 
@@ -59,7 +59,28 @@
         };
 
         self.logout = function(){
-            Backand.signout();
+            Backand.signout().then(function () {
+                $cookieStore.remove('username');
+            });
+        }
+
+        self.getCurrentUser = function () {
+            return $cookieStore.get('username');
+        }
+
+        self.getCurrentUserInfo = function () {
+            var currentUsername = self.getCurrentUser();
+            if (!currentUsername)
+                return null;
+
+            return $http({
+                method: 'GET',
+                url: baseUrl + "users",
+                params: { filter: JSON.stringify([{ fieldName: "email", operator: "contains", value: currentUsername }]) }
+            }).then(function (response) {
+                if (response.data && response.data.data && response.data.data.length == 1)
+                return response.data.data[0];
+            });
         }
 
     }

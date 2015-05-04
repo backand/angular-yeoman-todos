@@ -1,5 +1,13 @@
 <div class="container">
-    <a href="" ng-click="vm.logout()">Log out</a>
+    <div class="row">
+        <div class="col-sm-6">
+            <a href="" ng-click="vm.logout()">{{vm.signInTitle}}</a>
+        </div>
+        <div class="col-sm-6 pull-right">
+            <span>{{vm.getCurrentUserName()}}</span>
+        </div>
+    </div>
+
     <h2>My todos</h2>
 
     <!-- Todos input -->

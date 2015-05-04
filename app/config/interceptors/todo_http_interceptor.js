@@ -9,18 +9,14 @@
       response: function(response) {
         return response;
       },
-      responseError: function(rejection) {
-        return $injector.invoke(function(Backand) {
-          //if not sign in screen :
-          if ((rejection.config.url+"").indexOf('token') === -1){
+      responseError: function (rejection) {
+        if ((rejection.config.url + "").indexOf('token') === -1) {
             if (rejection.status === 401) {
-              $cookieStore.remove('backand_token');
-              $location.path('/login');
-              return $q.reject(rejection);
+                $location.path('/login');
+                return $q.reject(rejection);
             }
-          }
-          return $q.reject(rejection);
-        });
+        }
+        return $q.reject(rejection);
       }
     };
   }

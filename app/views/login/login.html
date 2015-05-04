@@ -35,20 +35,56 @@
                            required>
                 </div>
                 <div class="form-group">
+                    <div class="checkbox">
+                        <label for="newUser">
+                            <input type="checkbox"
+                                   class="form-control"
+                                   name="newUser"
+                                   placeholder="New User"
+                                   ng-model="vm.newUser"
+                                   ng-model-options="{debounce: 200}"
+                                   style="width:initial; height:initial;">New User
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text"
+                           class="form-control"
+                           name="name"
+                           placeholder="Your first name"
+                           ng-model="vm.firstName"
+                           ng-model-options="{debounce: 200}"
+                           ng-show="vm.newUser">
+                </div>
+                <div class="form-group">
+                    <input type="text"
+                           class="form-control"
+                           name="name"
+                           placeholder="Your last name"
+                           ng-model="vm.lastName"
+                           ng-model-options="{debounce: 200}"
+                           ng-show="vm.newUser">
+                </div>
+                <div ng-hide="vm.newUser" class="form-group">
                     <button type="submit"
                             class="btn btn-primary pull-right">
-                        Log in
+                        Sign in
+                    </button>
+                </div>
+                <div ng-show="vm.newUser" class="form-group">
+                    <button type="submit"
+                            class="btn btn-primary pull-right">
+                        Sign up
                     </button>
                 </div>
             </fieldset>
         </form>
     <div ng-show="error" class="alert alert-danger">{{vm.error}}</div>
-    <div class="divider"></div>
+    <!--<div class="divider"></div>
         <section class="additional-info">
             <p class="text-center">
                 <span>Don't have an app? </span>
                 <strong><a href="https://www.backand.com/apps/#/sign_up">Sign up</a></strong>
             </p>
         </section>
-    </div>
-</div>
+    </div>-->
