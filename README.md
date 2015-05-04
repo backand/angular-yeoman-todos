@@ -36,7 +36,7 @@ You will need:
   ```
 2. App Configuration
 In the app that you just created, please perform the following configuration 
-	- Security & Auth
+	2.1. Security & Auth
 Go to the Security & Auth --> Configuration page
 2.1.1. Enable Anonymous Access 
 In the Anonymous Access (first section on the page) swith to enable.
