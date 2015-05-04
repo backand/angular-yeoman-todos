@@ -67,46 +67,46 @@ You will need:
       and then on the Edit Action button.
       This action is triggered tight after a Backand user is created, but not yet committed, which means that if the action that you created will fail to execute the entire transaction will rollback.
       Change the following script:  
-          '''sql
+          ```sql
           insert into `<your table name>` (`email`,`name`,`role`, ....) values ('{{Username}}','{{FirstName}}','{{durados_User_Role}}',....) 
-          '''
+          ```
       to  
-          '''sql
+          ```sql
           insert into `users` (`email`,`name`,`role`) values ('{{Username}}','{{FirstName}}','{{durados_User_Role}}') 
-          '''
+          ```
       Change the Where Condition to true
       2. **Update My App User**  
       The exact same goes to Actions --> Update --> and click on Update My App User
       and change:  
-        '''sql
+        ```sql
         update `<your table name>` set `name` = '{{FirstName}}',  `role` = '{{durados_User_Role}}'.... where `email` = '{{Username}}'
-        '''
+        ```
       to  
-        '''sql
+        ```sql
         update `users` set `name` = '{{FirstName}}',  `role` = '{{durados_User_Role}}' where `email` = '{{Username}}'
-        '''
+        ```
       3. **Delete My App User**  
       The exact same goes to Actions --> Delete --> and click on Delete My App User
       and change:  
-        '''sql
+        ```sql
         delete `<your table name>` where `email` = '{{Username}}'
-        '''
+        ```
       to  
-        '''sql
+        ```sql
         delete `users` where `email` = '{{Username}}'
-        '''
+        ```
     6. **Anonymous Token**  
     To an anonymous user to connect with backand you need the anonymous token
     Copy the Anonymous Token from the Security & Auth page and replace it in the app.js following code:
-    '''javascript
+    ```javascript
     BackandProvider.setAnonymousToken('c3b61359-6843-440b-8a39-1d54f5b907be');
-    '''
+    ```
     7. **Signup Token**  
     You need the sign up token for the sign up as well
     Copy the Signup Token from the Security & Auth page and replace it in the app.js following code:
-      '''javascript
+      ```javascript
       BackandProvider.setSignUpToken('035F6716-4E87-46FB-A8C9-2C5212A37E80');
-      '''
+      ```
   2. **Manual Sync**  
   If you go to Security & Auth --> Team, you will find your email as the only team member in the team.
   That is because when you create a Backand app you automatically assigned when an Admin role as a team member.
@@ -115,13 +115,13 @@ You will need:
   Go to Objects --> users click on the last tab REST API
   Click on POST /objects/{name}
   Paste the following json inside the object text area:
-    '''json
+    ```json
     {
     "email": "<your email>",
     "name": "<your name>",
     "role": "Admin"
     }
-  '''
+    ```
   and click on Try it Out!
   this will manually sync your Backand user with your app's users
   That is the only time you will need to perform a manual sync,
