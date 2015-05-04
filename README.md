@@ -54,22 +54,21 @@ You will need:
 ## App Configuration
 2. In the app that you just created, please perform the following configuration 
 ### Security & Auth 
-	1. Go to the Security & Auth --> Configuration page
-#### Enable Anonymous Access 
-		1. In the Anonymous Access (first section on the page) swith to enable.
-		In the select options chose ReadOnly.
-		This means that users can access without username and password and they will be assigned with a ReadOnly role
-#### New Users Role 
-		2. In the Public App section (second section in the page), in the select options chose User.
-		This means that when new users are created they are assigned with a User role.
-		By switching the Public App on and off you can decide if only users that were invited by the Admin can sign up to the app 
-		or that everyone can sign up. This switch between Public and Private does not require any change in your code.
-		3. Custom Registration Page URL
-		Set this field to http://localhost:9000/#/login
-		When users are invited by Admin they will get an invitation email with a link to the registration page of the app.
-		You will need to change this to the local url to a real url after you publish your app  
-		4. Custom Verified Email Page URL
-		Set this field also to http://localhost:9000/#/login
+  1. Go to the Security & Auth --> Configuration page
+  #### Enable Anonymous Access 
+    1. In the Anonymous Access (first section on the page) swith to enable.
+    In the select options chose ReadOnly.
+    This means that users can access without username and password and they will be assigned with a ReadOnly role
+    #### New Users Role 
+    2. In the Public App section (second section in the page), in the select options chose User.
+    This means that when new users are created they are assigned with a User role.
+    By switching the Public App on and off you can decide if only users that were invited by the Admin can sign up to the app     or that everyone can sign up. This switch between Public and Private does not require any change in your code.
+    3. Custom Registration Page URL
+    Set this field to http://localhost:9000/#/login
+    When users are invited by Admin they will get an invitation email with a link to the registration page of the app.
+    You will need to change this to the local url to a real url after you publish your app  
+    4. Custom Verified Email Page URL
+    Set this field also to http://localhost:9000/#/login
 		In this app the same page is used both for sign in and sign up.
 		After users register they recieve a verfication email to verfiy their identity by clicking on a link on the email, 
 		After they click on the link they are redirect to the url above.
