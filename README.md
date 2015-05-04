@@ -71,30 +71,30 @@ You will need:
           insert into `<your table name>` (`email`,`name`,`role`, ....) values ('{{Username}}','{{FirstName}}','{{durados_User_Role}}',....) 
           ```  
       to  
-          ```sql
-          insert into `users` (`email`,`name`,`role`) values ('{{Username}}','{{FirstName}}','{{durados_User_Role}}') 
-          ```  
+      ```sql
+      insert into `users` (`email`,`name`,`role`) values ('{{Username}}','{{FirstName}}','{{durados_User_Role}}') 
+      ```  
       Change the Where Condition to true
       2. **Update My App User**  
       The exact same goes to Actions --> Update --> and click on Update My App User
       and change:  
-        ```sql
-        update `<your table name>` set `name` = '{{FirstName}}',  `role` = '{{durados_User_Role}}'.... where `email` = '{{Username}}'  
-        ```
+      ```sql
+      update `<your table name>` set `name` = '{{FirstName}}',  `role` = '{{durados_User_Role}}'.... where `email` = '{{Username}}'  
+      ```
       to  
-        ```sql
-        update `users` set `name` = '{{FirstName}}',  `role` = '{{durados_User_Role}}' where `email` = '{{Username}}'
-        ```
+      ```sql
+      update `users` set `name` = '{{FirstName}}',  `role` = '{{durados_User_Role}}' where `email` = '{{Username}}'
+      ```
       3. **Delete My App User**  
       The exact same goes to Actions --> Delete --> and click on Delete My App User
       and change:  
-        ```sql
-        delete `<your table name>` where `email` = '{{Username}}'
-        ```  
+      ```sql
+      delete `<your table name>` where `email` = '{{Username}}'
+      ```  
       to  
-        ```sql
-        delete `users` where `email` = '{{Username}}'
-        ```
+      ```sql
+      delete `users` where `email` = '{{Username}}'
+      ```
     6. **Anonymous Token**  
     To an anonymous user to connect with backand you need the anonymous token
     Copy the Anonymous Token from the Security & Auth page and replace it in the app.js following code:
@@ -115,13 +115,13 @@ You will need:
   Go to Objects --> users click on the last tab REST API
   Click on POST /objects/{name}
   Paste the following json inside the object text area:
-    ```json
-    {
+  ```json
+  {
     "email": "<your email>",
     "name": "<your name>",
     "role": "Admin"
-    }
-    ```
+  }
+  ```
   and click on Try it Out!
   this will manually sync your Backand user with your app's users
   That is the only time you will need to perform a manual sync,
