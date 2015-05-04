@@ -34,8 +34,21 @@ You will need:
     }
   ]
   ```
+2. Run the following commands
+
+  ```bash
+  git clone https://github.com/backand/angular-yeoman-todos.git
+  cd angular-yeoman-todos
+
+  npm install
+  bower install
+  grunt serve
+  ```
+
+3. Navigate to [localhost:9000](http://localhost:9000).
+  
 ## App Configuration
-2. In the app that you just created, please perform the following configuration   
+4. In the app that you just created, please perform the following configuration   
   1. **Security & Auth**   
   Go to the Security & Auth --> Configuration page
     1. **Enable Anonymous Access**   
@@ -107,7 +120,7 @@ You will need:
       ```javascript
       BackandProvider.setSignUpToken('035F6716-4E87-46FB-A8C9-2C5212A37E80');
       ```
-  2. **Manual Sync**  
+  2. **Manual Sync for My User**  
   If you go to Security & Auth --> Team, you will find your email as the only team member in the team.
   That is because when you create a Backand app you automatically assigned when an Admin role as a team member.
   That happened before you created the sync actions, so you need to manually sync yourself.
@@ -127,20 +140,10 @@ You will need:
   That is the only time you will need to perform a manual sync,
   Later when you will invite additional team members and users, they will automatically synced into your app's users
   3. Invite Users
-  4. 
-3. Run the following commands
-
-  ```bash
-  git clone https://github.com/backand/angular-yeoman-todos.git
-  cd angular-yeoman-todos
-
-  npm install
-  bower install
-  grunt serve
-  ```
-
-4. Navigate to [localhost:9000](http://localhost:9000).
-
+  Now you may invite users into your app, to do that go to Security & Auth --> Users and enter an email in the invite user input box. please use a valid email that you can recieve the emails that Backand will send. Click on Invite User(s). A new user with a User role will be added to the users list. You will get an invitation email for this user email address. On the email click on the invitation link, this will navigate to the sign in/sign up page to complete the sign in process.
+Check the new user checkbox and enter the sign up detail. When you will sign in with this user you will only be able to update or delete the items that this user created.
+  4. Set Current User Validation
+  
 
 ## Testing
 
