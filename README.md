@@ -36,8 +36,8 @@ You will need:
   ```
 ## App Configuration
 2. In the app that you just created, please perform the following configuration 
-	1. ### Security & Auth ###
-	Go to the Security & Auth --> Configuration page
+	### Security & Auth ###
+	1. Go to the Security & Auth --> Configuration page
 		1. Enable Anonymous Access 
 		In the Anonymous Access (first section on the page) swith to enable.
 		In the select options chose ReadOnly.
