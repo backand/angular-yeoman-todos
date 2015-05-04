@@ -127,7 +127,7 @@ You will need:
   That is the only time you will need to perform a manual sync,
   Later when you will invite additional team members and users, they will automatically synced into your app's users
   3. Invite Users
-  4.
+  4. 
 3. Run the following commands
 
   ```bash
