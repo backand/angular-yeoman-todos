@@ -36,17 +36,17 @@ You will need:
   ```
 2. App Configuration
 In the app that you just created, please perform the following configuration 
-	2.1. Security & Auth
-Go to the Security & Auth --> Configuration page
-2.1.1. Enable Anonymous Access 
-In the Anonymous Access (first section on the page) swith to enable.
-In the select options chose ReadOnly.
-This means that users can access without username and password and they will be assigned with a ReadOnly role
-2.1.2. New Users Role
-In the Public App section (second section in the page), in the select options chose User.
-This means that when new users are created they are assigned with a User role.
-By switching the Public App on and off you can decide if only users that were invited by the Admin can sign up to the app 
-or that everyone can sign up. This switch between Public and Private does not require any change in your code.
+	1. Security & Auth
+	Go to the Security & Auth --> Configuration page
+		1. Enable Anonymous Access 
+		In the Anonymous Access (first section on the page) swith to enable.
+		In the select options chose ReadOnly.
+		This means that users can access without username and password and they will be assigned with a ReadOnly role
+		2. New Users Role
+		In the Public App section (second section in the page), in the select options chose User.
+		This means that when new users are created they are assigned with a User role.
+		By switching the Public App on and off you can decide if only users that were invited by the Admin can sign up to the app 
+		or that everyone can sign up. This switch between Public and Private does not require any change in your code.
 2.1.3. Custom Registration Page URL
 Set this field to http://localhost:9000/#/login
 When users are invited by Admin they will get an invitation email with a link to the registration page of the app.
