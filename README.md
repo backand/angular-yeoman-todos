@@ -69,7 +69,7 @@ You will need:
       Change the following script:  
       ```sql
       insert into `<your table name>` (`email`,`name`,`role`, ....) values ('{{Username}}','{{FirstName}}','{{durados_User_Role}}',....) 
-      ```  
+      ```
       to  
       ```sql
       insert into `users` (`email`,`name`,`role`) values ('{{Username}}','{{FirstName}}','{{durados_User_Role}}') 
