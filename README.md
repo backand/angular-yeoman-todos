@@ -34,10 +34,9 @@ You will need:
     }
   ]
   ```
-
 ## App Configuration
-2. In the app that you just created, please perform the following configuration 
-  1.Security & Auth 
+2. In the app that you just created, please perform the following configuration   
+  1. **Security & Auth**   
   Go to the Security & Auth --> Configuration page
     1. **Enable Anonymous Access**   
     In the Anonymous Access (first section on the page) swith to enable.
@@ -63,7 +62,7 @@ You will need:
     In order to manage security, Backand has an internal users table. We recommend that you will add your own users table and sync it with Backand users.
     The actions on the Security & Auth page are triggered by any CRUD operation on the internal Backand users.
     Backand prepared 3 predefind actions for you that you can customize in order to sync Backand users with your app users.
-      1. Create My App User
+      1. **Create My App User**  
       On the Security & Auth page go to Actions --> Create --> and click on Create My App User
       and then on the Edit Action button.
       This action is triggered tight after a Backand user is created, but not yet committed, which means that if the action that you created will fail to execute the entire transaction will rollback.
@@ -76,7 +75,7 @@ You will need:
       insert into `users` (`email`,`name`,`role`) values ('{{Username}}','{{FirstName}}','{{durados_User_Role}}') 
       '''
       Change the Where Condition to true
-      2. Update My App User
+      2. **Update My App User**  
       The exact same goes to Actions --> Update --> and click on Update My App User
       and change:
       '''sql
@@ -86,7 +85,7 @@ You will need:
       '''sql
       update `users` set `name` = '{{FirstName}}',  `role` = '{{durados_User_Role}}' where `email` = '{{Username}}'
       '''
-      3. Delete My App User
+      3. **Delete My App User**  
       The exact same goes to Actions --> Delete --> and click on Delete My App User
       and change:
       '''sql
@@ -96,19 +95,19 @@ You will need:
       '''sql
       delete `users` where `email` = '{{Username}}'
       '''
-    6. Anonymous Token
+    6. **Anonymous Token**  
     To an anonymous user to connect with backand you need the anonymous token
     Copy the Anonymous Token from the Security & Auth page and replace it in the app.js following code:
     '''javascript
     BackandProvider.setAnonymousToken('c3b61359-6843-440b-8a39-1d54f5b907be');
     '''
-    7. Signup Token
+    7. **Signup Token**  
     You need the sign up token for the sign up as well
     Copy the Signup Token from the Security & Auth page and replace it in the app.js following code:
     '''javascript
     BackandProvider.setSignUpToken('035F6716-4E87-46FB-A8C9-2C5212A37E80');
     '''
-  2. Manual Sync
+  2. **Manual Sync**  
   If you go to Security & Auth --> Team, you will find your email as the only team member in the team.
   That is because when you create a Backand app you automatically assigned when an Admin role as a team member.
   That happened before you created the sync actions, so you need to manually sync yourself.
