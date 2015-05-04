@@ -38,7 +38,7 @@ You will need:
 2. In the app that you just created, please perform the following configuration 
 	### Security & Auth ###
 	1. Go to the Security & Auth --> Configuration page
-		#### Enable Anonymous Access ####
+	#### Enable Anonymous Access ####
 		1. In the Anonymous Access (first section on the page) swith to enable.
 		In the select options chose ReadOnly.
 		This means that users can access without username and password and they will be assigned with a ReadOnly role
