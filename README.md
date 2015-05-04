@@ -52,7 +52,7 @@ You will need:
   1. **Security & Auth**   
   Go to the Security & Auth --> Configuration page
     1. **Enable Anonymous Access**   
-    In the Anonymous Access (first section on the page) swith to enable.
+    In the Anonymous Access (first section on the page) switch to enable.
     In the select options chose ReadOnly.
     This means that users can access without username and password and they will be assigned with a ReadOnly role
     2. **New Users Role**   
@@ -66,7 +66,7 @@ You will need:
     4. **Custom Verified Email Page URL**  
     Set this field also to *http://localhost:9000/#/login*  
     In this app the same page is used both for sign in and sign up.
-    After users register they recieve a verfication email to verfiy their identity by clicking on a link on the email, 
+    After users register they receive a verification email to verifiy their identity by clicking on a link on the email, 
     After they click on the link they are redirect to the url above.
     You will need to change this to the local url to a real url after you publish your app  
     5. **Security Actions**  
@@ -74,7 +74,7 @@ You will need:
     In the following actions we are going to use action of "Transactional sql script" type which means that you can execute sql statements directly in the database. 
     In order to manage security, Backand has an internal users table. We recommend that you will add your own users table and sync it with Backand users.
     The actions on the Security & Auth page are triggered by any CRUD operation on the internal Backand users.
-    Backand prepared 3 predefind actions for you that you can customize in order to sync Backand users with your app users.
+    Backand prepared 3 predefined actions for you that you can customize in order to sync Backand users with your app users.
       1. **Create My App User**  
       On the Security & Auth page go to Actions --> Create --> and click on Create My App User
       and then on the Edit Action button.
@@ -140,10 +140,47 @@ You will need:
   That is the only time you will need to perform a manual sync,
   Later when you will invite additional team members and users, they will automatically synced into your app's users
   3. Invite Users
-  Now you may invite users into your app, to do that go to Security & Auth --> Users and enter an email in the invite user input box. please use a valid email that you can recieve the emails that Backand will send. Click on Invite User(s). A new user with a User role will be added to the users list. You will get an invitation email for this user email address. On the email click on the invitation link, this will navigate to the sign in/sign up page to complete the sign in process.
+  Now you may invite users into your app, to do that go to Security & Auth --> Users and enter an email in the invite user input box. please use a valid email that you can receive the emails that Backand will send. Click on Invite User(s). A new user with a User role will be added to the users list. You will get an invitation email for this user email address. On the email click on the invitation link, this will navigate to the sign in/sign up page to complete the sign in process.
 Check the new user checkbox and enter the sign up detail. When you will sign in with this user you will only be able to update or delete the items that this user created.
   4. Set Current User Validation
-  
+  To ensure that users with Admin role can perform CRUD for all items, users with User role can perform CRUD just for their own items and users with ReadOnly role can only read items, you need to write some server side javascript.  
+  Go to Objects --> todo and click on the Actions tab, click on New Action, on the Select Trigger, select Create - during data saving before it is committed. Leave the Input Parameters empty and in the Type select Server side javascript code. A text area for javascript code will show. Please enter the following code inside the function body:
+  ```javascript
+    // if the current user has an Admin role then he is allowed to create a todo for another user
+    if (userProfile.role == "Admin")
+	    return {};
+    var createdByFromInput = userInput.users;
+    // do not allow anonymous users to create a todo
+    if (!createdByFromInput)
+        throw new Error('The creator of the todo is unknown.');
+    var currentUsername = userProfile.username;
+    if (!currentUsername)
+        throw new Error('The current user is unknown.');
+    
+    // get the current user information from the app users table by filter with the email
+    var currentUser = null;
+    try{
+        currentUser = $http({method:"GET",url:CONSTS.apiUrl + '/1/objects/users?filter=[{ fieldName: "email", operator: "equals", value: "' + encodeURIComponent(currentUsername) + '" }]', headers: {"Authorization":userProfile.token, "AppName": userProfile.app}});
+    }
+    catch (err){
+        throw new Error('Failed to get the current user. ' + err.message);
+    }
+    // get the current user id
+    var currentUserId = null;
+    if (currentUser && currentUser.data && currentUser.data.length == 1){
+        currentUserId = currentUser.data[0].id;
+    }
+    else {
+         throw new Error('Could not find the current user in the app.');
+    }
+    // do not allow non Admin users to create a todo for other users 
+    if (createdByFromInput !=  currentUserId)
+        throw new Error('Please create todo only for yourself.');
+	  return {};
+  ```  
+  In the name input box enter Validate current user on create and save the action
+  a very similar verification is needed in the update and delete of a todo item.  
+  click on New Action, on the Select Trigger, select Update - during data saving before it is committed. Leave the Input Parameters empty and in the Type select Server side javascript code. A text area for javascript code will show. Please enter the following code inside the function body:
 
 ## Testing
 
