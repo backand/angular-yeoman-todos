@@ -23,14 +23,36 @@ You will need:
       "name": "items",
       "fields": [
         {
+          "name": "description",
+          "type": "ShortText"
+        },
+        {
+          "name": "completed",
+          "type": "Boolean"
+        },
+        {
+          "name": "createdBy",
+          "type": "SingleSelect",
+          "RelatedTable": "users"
+        }
+      ]
+    },
+    {
+      "name": "users",
+      "fields": [
+        {
+          "name": "email",
+          "type": "ShortText"
+        },
+        {
           "name": "name",
           "type": "ShortText"
         },
         {
-          "name": "description",
-          "type": "LongText"
+          "name": "role",
+          "type": "ShortText"
         }
-      ]
+      ]  
     }
   ]
   ```
