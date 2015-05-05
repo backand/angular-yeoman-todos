@@ -143,6 +143,7 @@ You will need:
   Now you may invite users into your app, to do that go to Security & Auth --> Users and enter an email in the invite user input box. please use a valid email that you can receive the emails that Backand will send. Click on Invite User(s). A new user with a User role will be added to the users list. You will get an invitation email for this user email address. On the email click on the invitation link, this will navigate to the sign in/sign up page to complete the sign in process.
 Check the new user checkbox and enter the sign up detail. When you will sign in with this user you will only be able to update or delete the items that this user created.
   4. Set Current User Validation
+  If you sign in as with a User role and with an Admin role, you can see that both roles can do CRUD for all the todo items. 
   To ensure that users with Admin role can perform CRUD for all items, users with User role can perform CRUD just for their own items and users with ReadOnly role can only read items, you need to write some server side javascript.  
   Go to Objects --> todo and click on the Actions tab, click on New Action, on the Select Trigger, select Create - during data saving before it is committed. Leave the Input Parameters empty and in the Type select Server side javascript code. A text area for javascript code will show. Please enter the following code inside the function body:
   ```javascript
@@ -183,7 +184,7 @@ Check the new user checkbox and enter the sign up detail. When you will sign in 
   click on New Action, on the Select Trigger, select Update - during data saving before it is committed. Leave the Input Parameters empty and in the Type select Server side javascript code. A text area for javascript code will show.
   In the javascript text area, please enter the following code:
   ```javascript
-    // if the current user has an Admin role then he is allowed to update a todo for another user
+    // if the current user has an Admin role then he is allowed to update a todo for other users
     if (userProfile.role == "Admin")
 	    return {};
     var createdByFromInput = userInput.users;
@@ -226,7 +227,7 @@ Check the new user checkbox and enter the sign up detail. When you will sign in 
   Click on New Action, on the Select Trigger, select Delete - during data saving before it is committed. Leave the Input Parameters empty and in the Type select Server side javascript code. A text area for javascript code will show.
   In the javascript text area, please enter the following code:
   ```javascript
-    // if the current user has an Admin role then he is allowed to delete a todo that was created by another user
+    // if the current user has an Admin role then he is allowed to delete a todo that was created by other users
     if (userProfile.role == "Admin")
 	    return {};
     var createdByFromRow = dbRow.users;
@@ -257,7 +258,8 @@ Check the new user checkbox and enter the sign up detail. When you will sign in 
     return {};
   ```
   Name the action *Validate current user on delete*. 
-
+  
+  This is it, your app is ready. You can test it by sign in with a User role and see that you can only delete and update the todo items you created while Admin can still do everything.
 ## Testing
 
 Running `grunt test` will run the unit tests with karma.
