@@ -179,8 +179,9 @@ Check the new user checkbox and enter the sign up detail. When you will sign in 
 	  return {};
   ```  
   In the name input box enter Validate current user on create and save the action
-  a very similar verification is needed in the update and delete of a todo item.  
-  click on New Action, on the Select Trigger, select Update - during data saving before it is committed. Leave the Input Parameters empty and in the Type select Server side javascript code. A text area for javascript code will show. Please enter the following code inside the function body:
+  a very similar verification is needed in the update of a todo item.  
+  click on New Action, on the Select Trigger, select Update - during data saving before it is committed. Leave the Input Parameters empty and in the Type select Server side javascript code. A text area for javascript code will show. you can paste the same code as the create, I would only change the error message from 'Please create todo only for yourself.' to 'You can only update your own todo'.  
+  
 
 ## Testing
 
