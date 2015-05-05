@@ -19,42 +19,42 @@ You will need:
 
   ```json
   [
-    {
-      "name": "items",
-      "fields": [
-        {
-          "name": "description",
-          "type": "ShortText"
-        },
-        {
-          "name": "completed",
-          "type": "Boolean"
-        },
-        {
-          "name": "createdBy",
-          "type": "SingleSelect",
-          "RelatedTable": "users"
-        }
-      ]
-    },
-    {
-      "name": "users",
-      "fields": [
-        {
-          "name": "email",
-          "type": "ShortText"
-        },
-        {
-          "name": "name",
-          "type": "ShortText"
-        },
-        {
-          "name": "role",
-          "type": "ShortText"
-        }
-      ]  
-    }
-  ]
+  {
+    "name": "users",
+    "fields": [
+      {
+        "name": "email",
+        "type": "ShortText"
+      },
+      {
+        "name": "name",
+        "type": "ShortText"
+      },
+      {
+        "name": "role",
+        "type": "ShortText"
+      }
+    ]  
+  },
+  {
+    "name": "todo",
+    "fields": [
+      {
+        "name": "description",
+        "type": "ShortText"
+      },
+      {
+        "name": "completed",
+        "type": "Boolean"
+      },
+      {
+        "name": "createdBy",
+        "type": "SingleSelect",
+        "RelatedTable": "users"
+      }
+    ]
+  }
+]
   ```
 2. Run the following commands
 
