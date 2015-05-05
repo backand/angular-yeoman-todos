@@ -178,10 +178,85 @@ Check the new user checkbox and enter the sign up detail. When you will sign in 
         throw new Error('Please create todo only for yourself.');
 	  return {};
   ```  
-  In the name input box enter Validate current user on create and save the action
-  a very similar verification is needed in the update of a todo item.  
-  click on New Action, on the Select Trigger, select Update - during data saving before it is committed. Leave the Input Parameters empty and in the Type select Server side javascript code. A text area for javascript code will show. you can paste the same code as the create, I would only change the error message from 'Please create todo only for yourself.' to 'You can only update your own todo'.  
-  
+  In the name input box enter *Validate current user on create* and save the action.  
+  a very similar verification is needed in the update of a todo item. The differece is that we also need to validate that users with User role do not change the creator of the todo. 
+  click on New Action, on the Select Trigger, select Update - during data saving before it is committed. Leave the Input Parameters empty and in the Type select Server side javascript code. A text area for javascript code will show.
+  In the javascript text area, please enter the following code:
+  ```javascript
+    // if the current user has an Admin role then he is allowed to update a todo for another user
+    if (userProfile.role == "Admin")
+	    return {};
+    var createdByFromInput = userInput.users;
+    // do not allow anonymous users to create a todo
+    if (!createdByFromInput)
+        throw new Error('The creator of the todo is unknown.');
+    var createdByFromRow = dbRow.users;
+    if (!createdByFromRow)
+        throw new Error('The creator of the todo is unknown.');
+    var currentUsername = userProfile.username;
+    if (!currentUsername)
+        throw new Error('The current user is unknown.');
+    
+    // get the current user information from the app users table by filter with the email
+    var currentUser = null;
+    try{
+        currentUser = $http({method:"GET",url:CONSTS.apiUrl + '/1/objects/users?filter=[{ fieldName: "email", operator: "equals", value: "' + encodeURIComponent(currentUsername) + '" }]', headers: {"Authorization":userProfile.token, "AppName": userProfile.app}});
+    }
+    catch (err){
+        throw new Error('Failed to get the current user. ' + err.message);
+    }
+    var currentUserId = null;
+    // get the current user id
+    if (currentUser && currentUser.data && currentUser.data.length == 1){
+        currentUserId = currentUser.data[0].id;
+    }
+    else {
+         throw new Error('Could not find the current user in the app.');
+    }
+    // do not allow non Admin users to update a todo for other users 
+    if (createdByFromRow !=  createdByFromInput)
+        throw new Error('You can can not change the creator of the todo.');
+    // do not allow non Admin users to change the creator of the todo 
+    if (createdByFromInput !=  currentUserId)
+        throw new Error('You can only update your own todo.');
+	return {};
+  ```
+  Name the action *Validate current user on update*.    
+  In delete there is no user input, so you just need to verify that the item you about to delete was created by the current user.
+  Click on New Action, on the Select Trigger, select Delete - during data saving before it is committed. Leave the Input Parameters empty and in the Type select Server side javascript code. A text area for javascript code will show.
+  In the javascript text area, please enter the following code:
+  ```javascript
+    // if the current user has an Admin role then he is allowed to delete a todo that was created by another user
+    if (userProfile.role == "Admin")
+	    return {};
+    var createdByFromRow = dbRow.users;
+    if (!createdByFromRow)
+        throw new Error('The creator of the todo is unknown.');
+    var currentUsername = userProfile.username;
+    if (!currentUsername)
+        throw new Error('The current user is unknown.');
+    
+    var currentUser = null;
+    // get the current user information from the app users table by filter with the email
+    try{
+        currentUser = $http({method:"GET",url:CONSTS.apiUrl + '/1/objects/users?filter=[{ fieldName: "email", operator: "equals", value: "' + encodeURIComponent(currentUsername) + '" }]', headers: {"Authorization":userProfile.token, "AppName": userProfile.app}});
+    }
+    catch (err){
+        throw new Error('Failed to get the current user. ' + err.message);
+    }
+    var currentUserId = null;
+    if (currentUser && currentUser.data && currentUser.data.length == 1){
+        currentUserId = currentUser.data[0].id;
+    }
+    else {
+         throw new Error('Could not find the current user in the app.');
+    }
+    // do not allow non Admin users to delete a todo created by other users 
+    if (createdByFromRow !=  currentUserId)
+        throw new Error('You can only delete your own todo.');
+    return {};
+  ```
+  Name the action *Validate current user on delete*. 
 
 ## Testing
 
