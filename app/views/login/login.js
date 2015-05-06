@@ -10,28 +10,27 @@
     function LoginCtrl(Backand, $cookieStore, $location) {
         var self = this;
         function init() {
-            //self.username = 'relly02@devitout.com';
-            //self.password = '123456';
-            //self.appName = 'todo36057';
-            self.username = 'admin03@devitout.com';
-            self.password = '123456';
-            self.appName = 'app18';
+            self.username = '';
+            self.password = '';
+            self.appName = '';
             self.firstName = '';
             self.lastName = '';
             self.newUser = false;
         }
 
         self.signIn = function () {
+            self.error = null;
+            self.success = null;
             if (self.newUser) {
                 Backand.signup(self.firstName, self.lastName, self.username, self.password, self.password)
                     .then(
-                    function (data) {
-                        console.log(data);
-                        self.error = 'Please check your email to continue';
+                    function (response) {
+                        console.log(response);
+                        self.success = 'Please check your email to continue';
                     },
-                    function (data) {
-                        console.log(data);
-                        self.error = data && data.error_description || 'Unknown error from server';
+                    function (response) {
+                        console.log(response);
+                        self.error = response && response.data || 'Unknown error from server';
                     }
                 );
             }
@@ -42,9 +41,9 @@
                         $cookieStore.put('username', self.username);
                         $location.path('/');
                     },
-                    function (data) {
-                        console.log(data);
-                        self.error = data && data.error_description || 'Unknown error from server';
+                    function (response) {
+                        console.log(response);
+                        self.error = response && response.data || 'Unknown error from server';
                     }
                 );
             }

@@ -14,6 +14,7 @@
         self.currentUserInfo = null;
         self.currentUser = null;
         self.signInTitle = "Sign In";
+        self.error = null;
         /**
          * init by reading the to do list from the database
          */
@@ -32,7 +33,8 @@
         /**
          * Read the to do list from the database
          */
-        function readTodoList(){
+        function readTodoList() {
+            clearError();
             TodoService.readAll().then(onReadListSuccess, errorHandler);
         }
 
@@ -49,6 +51,7 @@
          * @param todo
          */
         self.updateTodo = function (todo){
+            clearError();
             TodoService.update(todo.Id, todo).then(null, errorHandler);
         };
 
@@ -56,7 +59,8 @@
          * Add new item
          */
         self.addTodo = function () {
-            TodoService.create({ description: self.todo, users: self.currentUserInfo.id }).then(onAddTodoSuccess, errorHandler);
+            clearError();
+            TodoService.create({ description: self.todo, createdBy: self.currentUserInfo.Id }).then(onAddTodoSuccess, errorHandler);
             self.todo = '';
         };
 
@@ -73,7 +77,8 @@
          * @param todo
          */
         self.removeTodo = function (todo) {
-            TodoService.delete(todo.Id).then(function() {
+            clearError();
+            TodoService.delete(todo.Id).then(function () {
                 self.todos.splice(self.todos.indexOf(todo), 1);
             }, errorHandler);
         };
@@ -93,6 +98,22 @@
          */
         function errorHandler(error) {
             console.log(error);
+            if (error) {
+                if (error.data && error.data.split) {
+                    var msg = error.data.split(':');
+                    self.error = msg[msg.length - 1];
+                }
+                else {
+                    self.error = JSON.stringify(error);
+                }
+            }
+            else {
+                self.error == "Unexpected failure";
+            }
+        }
+
+        function clearError() {
+            self.error = null;
         }
 
         function getCurrentUserInfo() {
