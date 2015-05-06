@@ -94,7 +94,7 @@ You will need:
     5. **Security Actions**  
     Backand is an ORM system which means that every object has a compatible database table.
     In the following actions we are going to use action of "Transactional sql script" type which means that you can execute sql statements directly in the database. 
-    In order to manage security, Backand has an internal users table. We recommend that you will add your own users table and sync it with Backand users.
+    In order to manage security, Backand has an internal users table. We recommend that you will add your own users table and sync it with Backand users. In this todo example we added the users object for that purpose.
     The actions on the Security & Auth page are triggered by any CRUD operation on the internal Backand users.
     Backand prepared 3 predefined actions for you that you can customize in order to sync Backand users with your app users.
       1. **Create My App User**  
