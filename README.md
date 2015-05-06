@@ -145,13 +145,13 @@ You will need:
       BackandProvider.setSignUpToken('035F6716-4E87-46FB-A8C9-2C5212A37E80');
       ```
   2. **Manual Sync for My User**  
-  If you go to Security & Auth --> Team, you will find your email as the only team member in the team.
+  If you go to *Security & Auth --> Team*, you will find your email as the only team member in the team.
   That is because when you create a Backand app you automatically assigned when an *Admin* role as a team member.
   That happened before you created the sync actions, so you need to manually sync yourself.
   Backand has a tool for that.
   Go to *Objects --> users* click on the last tab *REST API*
   Click on *POST /objects/{name}*
-  Paste the following json inside the object text area:
+  Paste the following json inside the object text area and replace <your email> and <your name> with the values from the single row in the *team member*:
     ```json
     {
       "email": "<your email>",
@@ -164,15 +164,15 @@ You will need:
   That is the only time you will need to perform a manual sync,
   Later when you will invite additional team members and users, they will automatically synced into your app's users
   3. Invite Users
-  Now you may invite users into your app, to do that go to Security & Auth --> Users and enter an email in the invite user input box. please use a valid email that you can receive the emails that Backand will send. Click on Invite User(s). A new user with a User role will be added to the users list. You will get an invitation email for this user email address. On the email click on the invitation link, this will navigate to the sign in/sign up page to complete the sign in process.
-Check the new user checkbox and enter the sign up detail. When you will sign in with this user you will only be able to update or delete the items that this user created.
+  Now you may invite users into your app, to do that go to *Security & Auth --> Users* and enter an email in the *invite user(s)* input box. please use a valid email that you can receive the emails that Backand will send. Click on *Invite User(s)* button. A new user with a *User* role will be added to the users list. You will get an invitation email for this user email address. On the email, click on the invitation link, this will navigate to the sign in/sign up page to complete the sign in process.
+Check the new user checkbox and enter the sign up detail. When you will sign in with this user you should only be able to update or delete the items that this user created. But this won't happen until you finish the next steps.
   4. Set Current User Validation
-  If you sign in as with a User role and with an *Admin* role, you can see that both roles can do CRUD for all the todo items. 
-  To ensure that users with *Admin* role can perform CRUD for all items, users with User role can perform CRUD just for their own items and users with ReadOnly role can only read items, you need to write some server side javascript.  
-  Go to Objects --> todo and click on the Actions tab, click on New Action, on the Select Trigger, select Create - during data saving before it is committed. Leave the Input Parameters empty and in the Type select Server side javascript code. A text area for javascript code will show. Please enter the following code inside the function body:
+  If you sign in as with a *User* role and with an *Admin* role, you can see that both roles can do CRUD for all the todo items. 
+  To ensure that users with *Admin* role can perform CRUD for all items, users with *User* role can perform CRUD just for their own items and users with *ReadOnly* role can only read items, you need to write some server side javascript.  
+  Go to *Objects --> todo* and click on the *Actions* tab, click on the *New Action* button, on the *Select Trigger...*, select *Create - during data saving before it is committed*. Leave the *Input Parameters* empty and in the *Type* select *Server side javascript code*. A text area for javascript code will show. Please paste the following code inside the function body:
   ```javascript
     // if the current user has an *Admin* role then he is allowed to create a todo for another user
-    if (userProfile.role == "*Admin*")
+    if (userProfile.role == "Admin")
 	    return {};
     var createdByFromInput = userInput.users;
     // do not allow anonymous users to create a todo
@@ -203,13 +203,13 @@ Check the new user checkbox and enter the sign up detail. When you will sign in 
         throw new Error('Please create todo only for yourself.');
 	  return {};
   ```  
-  In the name input box enter *Validate current user on create* and save the action.  
-  a very similar verification is needed in the update of a todo item. The differece is that we also need to validate that users with User role do not change the creator of the todo. 
-  click on New Action, on the Select Trigger, select Update - during data saving before it is committed. Leave the Input Parameters empty and in the Type select Server side javascript code. A text area for javascript code will show.
+  In the *name your action* input box enter *Validate current user on create* and save the action.  
+  a very similar verification is needed in the update of a *todo* item. The differece is that we also need to validate that users with *User* role do not change the creator of the todo. 
+  click on the *New Action* button, on the *Select Trigger...*, select *Update - during data saving before it is committed*. Leave the *Input Parameters* empty and in the *Type* select *Server side javascript code*. A text area for javascript code will show.
   In the javascript text area, please enter the following code:
   ```javascript
     // if the current user has an *Admin* role then he is allowed to update a todo for other users
-    if (userProfile.role == "*Admin*")
+    if (userProfile.role == "Admin")
 	    return {};
     var createdByFromInput = userInput.users;
     // do not allow anonymous users to create a todo
@@ -247,12 +247,12 @@ Check the new user checkbox and enter the sign up detail. When you will sign in 
 	return {};
   ```
   Name the action *Validate current user on update*.    
-  In delete there is no user input, so you just need to verify that the item you about to delete was created by the current user.
-  Click on New Action, on the Select Trigger, select Delete - during data saving before it is committed. Leave the Input Parameters empty and in the Type select Server side javascript code. A text area for javascript code will show.
+  In delete requests there is no user input, so you just need to verify that the item you about to delete was created by the current user.
+  Click on the *New Action* button, on the *Select Trigger...*, select *Delete - during recored deleted before it is committed*. Leave the *Input Parameters* empty and in the *Type* select *Server side javascript code*. A text area for javascript code will show.
   In the javascript text area, please enter the following code:
   ```javascript
     // if the current user has an *Admin* role then he is allowed to delete a todo that was created by other users
-    if (userProfile.role == "*Admin*")
+    if (userProfile.role == "Admin")
 	    return {};
     var createdByFromRow = dbRow.users;
     if (!createdByFromRow)
