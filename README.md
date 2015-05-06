@@ -174,7 +174,7 @@ Check the new user checkbox and enter the sign up detail. When you will sign in 
     // if the current user has an *Admin* role then he is allowed to create a todo for another user
     if (userProfile.role == "Admin")
 	    return {};
-    var createdByFromInput = userInput.users;
+    var createdByFromInput = userInput.createdBy;
     // do not allow anonymous users to create a todo
     if (!createdByFromInput)
         throw new Error('The creator of the todo is unknown.');
@@ -193,7 +193,7 @@ Check the new user checkbox and enter the sign up detail. When you will sign in 
     // get the current user id
     var currentUserId = null;
     if (currentUser && currentUser.data && currentUser.data.length == 1){
-        currentUserId = currentUser.data[0].id;
+        currentUserId = currentUser.data[0].Id;
     }
     else {
          throw new Error('Could not find the current user in the app.');
@@ -211,11 +211,11 @@ Check the new user checkbox and enter the sign up detail. When you will sign in 
     // if the current user has an *Admin* role then he is allowed to update a todo for other users
     if (userProfile.role == "Admin")
 	    return {};
-    var createdByFromInput = userInput.users;
+    var createdByFromInput = userInput.createdBy;
     // do not allow anonymous users to create a todo
     if (!createdByFromInput)
         throw new Error('The creator of the todo is unknown.');
-    var createdByFromRow = dbRow.users;
+    var createdByFromRow = dbRow.createdBy;
     if (!createdByFromRow)
         throw new Error('The creator of the todo is unknown.');
     var currentUsername = userProfile.username;
@@ -233,7 +233,7 @@ Check the new user checkbox and enter the sign up detail. When you will sign in 
     var currentUserId = null;
     // get the current user id
     if (currentUser && currentUser.data && currentUser.data.length == 1){
-        currentUserId = currentUser.data[0].id;
+        currentUserId = currentUser.data[0].Id;
     }
     else {
          throw new Error('Could not find the current user in the app.');
@@ -254,7 +254,7 @@ Check the new user checkbox and enter the sign up detail. When you will sign in 
     // if the current user has an *Admin* role then he is allowed to delete a todo that was created by other users
     if (userProfile.role == "Admin")
 	    return {};
-    var createdByFromRow = dbRow.users;
+    var createdByFromRow = dbRow.createdBy;
     if (!createdByFromRow)
         throw new Error('The creator of the todo is unknown.');
     var currentUsername = userProfile.username;
@@ -271,7 +271,7 @@ Check the new user checkbox and enter the sign up detail. When you will sign in 
     }
     var currentUserId = null;
     if (currentUser && currentUser.data && currentUser.data.length == 1){
-        currentUserId = currentUser.data[0].id;
+        currentUserId = currentUser.data[0].Id;
     }
     else {
          throw new Error('Could not find the current user in the app.');
