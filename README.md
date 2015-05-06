@@ -1,10 +1,10 @@
 # Todo Project With Users Roles
 Based on the Todo project with an addition of users roles:
-* Users with Admin role can do all the CRUD actions for all the items
+* Users with *Admin* role can do all the CRUD actions for all the items
 * Users with User role can do Create, Update and Delete for the items they created and can read all the items
 * Users with ReadOnly role can only read all the items.
 
-Users with Admin or User role must sign in with their username and password,
+Users with *Admin* or User role must sign in with their username and password,
 Users that do not sign in with a username and password, get a ReadOnly role.
 In the code, those users are referred to as anonymous users
 
@@ -80,10 +80,10 @@ You will need:
     2. **New Users Role**   
     In the Public App section (second section in the page), in the select options chose User.
     This means that when new users are created they are assigned with a User role.
-    By switching the Public App on and off you can decide if only users that were invited by the Admin can sign up to the app     or that everyone can sign up. This switch between Public and Private does not require any change in your code.
+    By switching the Public App on and off you can decide if only users that were invited by the *Admin* can sign up to the app     or that everyone can sign up. This switch between Public and Private does not require any change in your code.
     3. **Custom Registration Page URL**  
     Set this field to *http://localhost:9000/#/login*  
-    When users are invited by Admin they will get an invitation email with a link to the registration page of the app.
+    When users are invited by *Admin* they will get an invitation email with a link to the registration page of the app.
     You will need to change this to the local url to a real url after you publish your app  
     4. **Custom Verified Email Page URL**  
     Set this field also to *http://localhost:9000/#/login*  
@@ -144,7 +144,7 @@ You will need:
       ```
   2. **Manual Sync for My User**  
   If you go to Security & Auth --> Team, you will find your email as the only team member in the team.
-  That is because when you create a Backand app you automatically assigned when an Admin role as a team member.
+  That is because when you create a Backand app you automatically assigned when an *Admin* role as a team member.
   That happened before you created the sync actions, so you need to manually sync yourself.
   Backand has a tool for that.
   Go to Objects --> users click on the last tab REST API
@@ -154,7 +154,7 @@ You will need:
     {
       "email": "<your email>",
       "name": "<your name>",
-      "role": "Admin"
+      "role": "*Admin*"
     }
     ```
   and click on Try it Out!
@@ -165,12 +165,12 @@ You will need:
   Now you may invite users into your app, to do that go to Security & Auth --> Users and enter an email in the invite user input box. please use a valid email that you can receive the emails that Backand will send. Click on Invite User(s). A new user with a User role will be added to the users list. You will get an invitation email for this user email address. On the email click on the invitation link, this will navigate to the sign in/sign up page to complete the sign in process.
 Check the new user checkbox and enter the sign up detail. When you will sign in with this user you will only be able to update or delete the items that this user created.
   4. Set Current User Validation
-  If you sign in as with a User role and with an Admin role, you can see that both roles can do CRUD for all the todo items. 
-  To ensure that users with Admin role can perform CRUD for all items, users with User role can perform CRUD just for their own items and users with ReadOnly role can only read items, you need to write some server side javascript.  
+  If you sign in as with a User role and with an *Admin* role, you can see that both roles can do CRUD for all the todo items. 
+  To ensure that users with *Admin* role can perform CRUD for all items, users with User role can perform CRUD just for their own items and users with ReadOnly role can only read items, you need to write some server side javascript.  
   Go to Objects --> todo and click on the Actions tab, click on New Action, on the Select Trigger, select Create - during data saving before it is committed. Leave the Input Parameters empty and in the Type select Server side javascript code. A text area for javascript code will show. Please enter the following code inside the function body:
   ```javascript
-    // if the current user has an Admin role then he is allowed to create a todo for another user
-    if (userProfile.role == "Admin")
+    // if the current user has an *Admin* role then he is allowed to create a todo for another user
+    if (userProfile.role == "*Admin*")
 	    return {};
     var createdByFromInput = userInput.users;
     // do not allow anonymous users to create a todo
@@ -196,7 +196,7 @@ Check the new user checkbox and enter the sign up detail. When you will sign in 
     else {
          throw new Error('Could not find the current user in the app.');
     }
-    // do not allow non Admin users to create a todo for other users 
+    // do not allow non *Admin* users to create a todo for other users 
     if (createdByFromInput !=  currentUserId)
         throw new Error('Please create todo only for yourself.');
 	  return {};
@@ -206,8 +206,8 @@ Check the new user checkbox and enter the sign up detail. When you will sign in 
   click on New Action, on the Select Trigger, select Update - during data saving before it is committed. Leave the Input Parameters empty and in the Type select Server side javascript code. A text area for javascript code will show.
   In the javascript text area, please enter the following code:
   ```javascript
-    // if the current user has an Admin role then he is allowed to update a todo for other users
-    if (userProfile.role == "Admin")
+    // if the current user has an *Admin* role then he is allowed to update a todo for other users
+    if (userProfile.role == "*Admin*")
 	    return {};
     var createdByFromInput = userInput.users;
     // do not allow anonymous users to create a todo
@@ -236,10 +236,10 @@ Check the new user checkbox and enter the sign up detail. When you will sign in 
     else {
          throw new Error('Could not find the current user in the app.');
     }
-    // do not allow non Admin users to update a todo for other users 
+    // do not allow non *Admin* users to update a todo for other users 
     if (createdByFromRow !=  createdByFromInput)
         throw new Error('You can can not change the creator of the todo.');
-    // do not allow non Admin users to change the creator of the todo 
+    // do not allow non *Admin* users to change the creator of the todo 
     if (createdByFromInput !=  currentUserId)
         throw new Error('You can only update your own todo.');
 	return {};
@@ -249,8 +249,8 @@ Check the new user checkbox and enter the sign up detail. When you will sign in 
   Click on New Action, on the Select Trigger, select Delete - during data saving before it is committed. Leave the Input Parameters empty and in the Type select Server side javascript code. A text area for javascript code will show.
   In the javascript text area, please enter the following code:
   ```javascript
-    // if the current user has an Admin role then he is allowed to delete a todo that was created by other users
-    if (userProfile.role == "Admin")
+    // if the current user has an *Admin* role then he is allowed to delete a todo that was created by other users
+    if (userProfile.role == "*Admin*")
 	    return {};
     var createdByFromRow = dbRow.users;
     if (!createdByFromRow)
@@ -274,14 +274,14 @@ Check the new user checkbox and enter the sign up detail. When you will sign in 
     else {
          throw new Error('Could not find the current user in the app.');
     }
-    // do not allow non Admin users to delete a todo created by other users 
+    // do not allow non *Admin* users to delete a todo created by other users 
     if (createdByFromRow !=  currentUserId)
         throw new Error('You can only delete your own todo.');
     return {};
   ```
   Name the action *Validate current user on delete*. 
   
-  This is it, your app is ready. You can test it by sign in with a User role and see that you can only delete and update the todo items you created while Admin can still do everything.
+  This is it, your app is ready. You can test it by sign in with a User role and see that you can only delete and update the todo items you created while *Admin* can still do everything.
 ## Testing
 
 Running `grunt test` will run the unit tests with karma.
