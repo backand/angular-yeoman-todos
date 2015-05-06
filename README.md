@@ -1,11 +1,11 @@
 # Todo Project With Users Roles
 Based on the Todo project with an addition of users roles:
 * Users with *Admin* role can do all the CRUD actions for all the items
-* Users with User role can do Create, Update and Delete for the items they created and can read all the items
-* Users with ReadOnly role can only read all the items.
+* Users with *User* role can do Create, Update and Delete for the items they created and can read all the items
+* Users with *ReadOnly* role can only read all the items.
 
 Users with *Admin* or User role must sign in with their username and password,
-Users that do not sign in with a username and password, get a ReadOnly role.
+Users that do not sign in with a username and password, get a *ReadOnly* role.
 In the code, those users are referred to as anonymous users
 
 ## Prerequisites
@@ -74,71 +74,73 @@ You will need:
   1. **Security & Auth**   
   Go to the Security & Auth --> Configuration page
     1. **Enable Anonymous Access**   
-    In the Anonymous Access (first section on the page) switch to enable.
-    In the select options chose ReadOnly.
-    This means that users can access without username and password and they will be assigned with a ReadOnly role
+    In the *Anonymous Access* (first section on the page) switch to enable.
+    In the select options chose *ReadOnly*.
+    This means that users can access without username and password and they will be assigned with a *ReadOnly* role
     2. **New Users Role**   
-    In the Public App section (second section in the page), in the select options chose User.
-    This means that when new users are created they are assigned with a User role.
-    By switching the Public App on and off you can decide if only users that were invited by the *Admin* can sign up to the app     or that everyone can sign up. This switch between Public and Private does not require any change in your code.
+    In the *Public App* section (second section in the page), in the select options chose *User*.
+    This means that when new users are created they are assigned with a *User* role.
+    By switching the *Public App* on and off you can decide if only users that were invited by the *Admin* can sign up to the app or that everyone can sign up. This switch between *Public* and *Private* does not require any change in your code.
     3. **Custom Registration Page URL**  
     Set this field to *http://localhost:9000/#/login*  
-    When users are invited by *Admin* they will get an invitation email with a link to the registration page of the app.
-    You will need to change this to the local url to a real url after you publish your app  
+    When users are invited by *Admin* they will get an invitation email with a link to the sign up page of the app.
+    You will need to change this local url to a real url after you publish your app  
     4. **Custom Verified Email Page URL**  
     Set this field also to *http://localhost:9000/#/login*  
     In this app the same page is used both for sign in and sign up.
     After users register they receive a verification email to verifiy their identity by clicking on a link on the email, 
-    After they click on the link they are redirect to the url above.
-    You will need to change this to the local url to a real url after you publish your app  
+    After they click on the link they are redirected to the url above.
+    You will need to change this local url to a real url after you publish your app  
     5. **Security Actions**  
     Backand is an ORM system which means that every object has a compatible database table.
     In the following actions we are going to use action of "Transactional sql script" type which means that you can execute sql statements directly in the database. 
-    In order to manage security, Backand has an internal users table. We recommend that you will add your own users table and sync it with Backand users. In this todo example we added the users object for that purpose.
-    The actions on the Security & Auth page are triggered by any CRUD operation on the internal Backand users.
+    In order to manage security, Backand has an internal users table. We recommend that you will add your own users table and sync it with Backand users. In this *Todos* example we added the users object for that purpose.
+    The actions on the *Security & Auth* page are triggered by any CRUD operation on the internal Backand users.
     Backand prepared 3 predefined actions for you that you can customize in order to sync Backand users with your app users.
       1. **Create My App User**  
-      On the Security & Auth page go to Actions --> Create --> and click on Create My App User
-      and then on the Edit Action button.
-      This action is triggered tight after a Backand user is created, but not yet committed, which means that if the action that you created will fail to execute the entire transaction will rollback.
+      On the *Security & Auth* page go to the *Actions* section and click on *Create My App User*
+      and then on the *Edit Action* button.
+      This action is triggered right after a Backand user is created, but not yet committed, which means that if the action *Create My App User* will fail to execute the entire transaction will rollback including the Backand user creation.
       Change the following script:  
         ```sql
-        insert into `<your table name>` (`email`,`name`,`role`, ....) values ('{{Username}}','{{FirstName}}','{{durados_User_Role}}',....) 
+        insert into `<your app users table here>` (`email`,`name`,`role`...) values ('{{Username}}','{{FirstName}}','{{durados_User_Role}}'...) 
         ```  
       to  
         ```sql
         insert into `users` (`email`,`name`,`role`) values ('{{Username}}','{{FirstName}}','{{durados_User_Role}}') 
         ```  
-      Change the Where Condition to true
+      Change the *Where Condition* from *false* to *true* and *Save* the action
       2. **Update My App User**  
-      The exact same goes to Actions --> Update --> and click on Update My App User
-      and change:  
+      The exact same goes to the *Update My App User* action,
+      change:  
         ```sql
-        update `<your table name>` set `name` = '{{FirstName}}',  `role` = '{{durados_User_Role}}'.... where `email` = '{{Username}}'  
+        update `<your app users table here>` set `name` = '{{FirstName}}', `role` = '{{durados_User_Role}}' where `email` = '{{Username}}'  
         ```  
       to  
         ```sql
         update `users` set `name` = '{{FirstName}}',  `role` = '{{durados_User_Role}}' where `email` = '{{Username}}'
         ```  
+        Change the *Where Condition* from *false* to *true* and *Save* the action.
       3. **Delete My App User**  
-      The exact same goes to Actions --> Delete --> and click on Delete My App User
-      and change:  
+      The exact same also goes the *Delete My App User* action, 
+      change:  
         ```sql
-        delete `<your table name>` where `email` = '{{Username}}'
+        delete `<your app users table here>` where `email` = '{{Username}}'
         ```  
       to  
         ```sql
         delete `users` where `email` = '{{Username}}'
-        ```
+        ```  
+        Change the *Where Condition* from *false* to *true* and *Save* the action.
     6. **Anonymous Token**  
-    To an anonymous user to connect with backand you need the anonymous token
-    Copy the Anonymous Token from the Security & Auth page and replace it in the app.js following code:
+    For an anonymous user to connect with backand you need the *Anonymous Token*
+    Copy the *Anonymous Token* from the *Security & Auth* page and replace it in the app.js following code:
       ```javascript
       BackandProvider.setAnonymousToken('c3b61359-6843-440b-8a39-1d54f5b907be');
       ```
     7. **Signup Token**  
     You need the sign up token for the sign up as well
-    Copy the Signup Token from the Security & Auth page and replace it in the app.js following code:  
+    Copy the *Signup Token* from the *Security & Auth* page and replace it in the app.js following code:  
       ```javascript
       BackandProvider.setSignUpToken('035F6716-4E87-46FB-A8C9-2C5212A37E80');
       ```
@@ -147,14 +149,14 @@ You will need:
   That is because when you create a Backand app you automatically assigned when an *Admin* role as a team member.
   That happened before you created the sync actions, so you need to manually sync yourself.
   Backand has a tool for that.
-  Go to Objects --> users click on the last tab REST API
-  Click on POST /objects/{name}
+  Go to *Objects --> users* click on the last tab *REST API*
+  Click on *POST /objects/{name}*
   Paste the following json inside the object text area:
     ```json
     {
       "email": "<your email>",
       "name": "<your name>",
-      "role": "*Admin*"
+      "role": "Admin"
     }
     ```
   and click on Try it Out!
