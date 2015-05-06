@@ -50,7 +50,7 @@ You will need:
       {
         "name": "createdBy",
         "type": "SingleSelect",
-        "RelatedTable": "users"
+        "relatedTable": "users"
       }
     ]
   }
