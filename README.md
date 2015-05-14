@@ -101,11 +101,13 @@ You will need:
       On the *Security & Auth* page go to the *Actions* section and click on *Create My App User*
       and then on the *Edit Action* button.
       This action is triggered right after a Backand user is created, but not yet committed, which means that if the action *Create My App User* will fail to execute the entire transaction will rollback including the Backand user creation.
-      Change the following script:  
+      Change the following script:
+
         ```sql
         insert into `<your app users table here>` (`email`,`name`,`role`...) values ('{{Username}}','{{FirstName}}','{{Role}}'...) 
         ```  
       to  
+      
         ```sql
         insert into `users` (`email`,`name`,`role`) values ('{{Username}}','{{FirstName}}','{{Role}}') 
         ```  
@@ -117,6 +119,7 @@ You will need:
         update `<your app users table here>` set `name` = '{{FirstName}}', `role` = '{{durados_User_Role}}' where `email` = '{{Username}}'  
         ```  
       to  
+      
         ```sql
         update `users` set `name` = '{{FirstName}}',  `role` = '{{durados_User_Role}}' where `email` = '{{Username}}'
         ```  
@@ -124,10 +127,12 @@ You will need:
       3. **Delete My App User**  
       The exact same also goes the *Delete My App User* action, 
       change:  
+      
         ```sql
         delete `<your app users table here>` where `email` = '{{Username}}'
         ```  
       to  
+      
         ```sql
         delete `users` where `email` = '{{Username}}'
         ```  
@@ -135,12 +140,14 @@ You will need:
     6. **Anonymous Token**  
     For an anonymous user to connect with backand you need the *Anonymous Token*
     Copy the *Anonymous Token* from the *Security & Auth* page and replace it in the app.js following code:
+    
       ```javascript
       BackandProvider.setAnonymousToken('c3b61359-6843-440b-8a39-1d54f5b907be');
       ```
     7. **Signup Token**  
     You need the sign up token for the sign up as well
     Copy the *Signup Token* from the *Security & Auth* page and replace it in the app.js following code:  
+    
       ```javascript
       BackandProvider.setSignUpToken('035F6716-4E87-46FB-A8C9-2C5212A37E80');
       ```
@@ -152,6 +159,7 @@ You will need:
   Go to *Objects --> users* click on the last tab *REST API*
   Click on *POST /objects/{name}*
   Paste the following json inside the object text area and replace <your email> and <your name> with the values from the single row in the *team member*:
+
     ```json
     {
       "email": "<your email>",
@@ -170,6 +178,7 @@ Check the new user checkbox and enter the sign up detail. When you will sign in 
   If you sign in as with a *User* role and with an *Admin* role, you can see that both roles can do CRUD for all the todo items. 
   To ensure that users with *Admin* role can perform CRUD for all items, users with *User* role can perform CRUD just for their own items and users with *ReadOnly* role can only read items, you need to write some server side javascript.  
   Go to *Objects --> todo* and click on the *Actions* tab, click on the *New Action* button, on the *Select Trigger...*, select *Create - during data saving before it is committed*. Leave the *Input Parameters* empty and in the *Type* select *Server side javascript code*. A text area for javascript code will show. Please paste the following code inside the function body:
+
   ```javascript
     // if the current user has an *Admin* role then he is allowed to create a todo for another user
     if (userProfile.role == "Admin")
@@ -250,6 +259,7 @@ Check the new user checkbox and enter the sign up detail. When you will sign in 
   In delete requests there is no user input, so you just need to verify that the item you about to delete was created by the current user.
   Click on the *New Action* button, on the *Select Trigger...*, select *Delete - during recored deleted before it is committed*. Leave the *Input Parameters* empty and in the *Type* select *Server side javascript code*. A text area for javascript code will show.
   In the javascript text area, please enter the following code:
+  
   ```javascript
     // if the current user has an *Admin* role then he is allowed to delete a todo that was created by other users
     if (userProfile.role == "Admin")
