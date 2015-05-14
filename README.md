@@ -103,11 +103,11 @@ You will need:
       This action is triggered right after a Backand user is created, but not yet committed, which means that if the action *Create My App User* will fail to execute the entire transaction will rollback including the Backand user creation.
       Change the following script:  
         ```sql
-        insert into `<your app users table here>` (`email`,`name`,`role`...) values ('{{Username}}','{{FirstName}}','{{durados_User_Role}}'...) 
+        insert into `<your app users table here>` (`email`,`name`,`role`...) values ('{{Username}}','{{FirstName}}','{{Role}}'...) 
         ```  
       to  
         ```sql
-        insert into `users` (`email`,`name`,`role`) values ('{{Username}}','{{FirstName}}','{{durados_User_Role}}') 
+        insert into `users` (`email`,`name`,`role`) values ('{{Username}}','{{FirstName}}','{{Role}}') 
         ```  
       Change the *Where Condition* from *false* to *true* and *Save* the action
       2. **Update My App User**  
