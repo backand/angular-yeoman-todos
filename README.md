@@ -1,24 +1,31 @@
-# Todo Project With Users Roles
-Based on the Todo project with an addition of users roles:
-* Users with *Admin* role can do all the CRUD actions for all the items
-* Users with *User* role can do Create, Update and Delete for the items they created and can read all the items
-* Users with *ReadOnly* role can only read all the items.
+# Todo Project With User Roles
 
-Users with *Admin* or User role must sign in with their username and password,
-Users that do not sign in with a username and password, get a *ReadOnly* role.
-In the code, those users are referred to as anonymous users
+This demo application shows you how to implement [Backand](www.backand.com) user roles in a basic ToDo application written in AngularJS. This demonstrates the security features that Backand's API has to offer, and allows you to see how actions by a user are restricted based upon their assigned role.
+
+The Todo project has the following user roles enabled:
+* An *Admin* role, with which the user can perform all available CRUD actions on all items
+* A *User* role, which allows the user to read all items, but to only Create, Update, or Delete items that have been created by the user.
+* A *ReadOnly* role, which restricts the user to only reading items in the application.
+
+Furthermore, there are two ways to access the application:
+* Users with the *Admin* or *User* roles must sign in with their username and password
+* Users that browse the app without signing in are assigned the *ReadOnly* role (In the code, those users are referred to as *anonymous users*).
 
 ## Prerequisites
-You will need:
-* [Git](http://git-scm.com/)
-* [NodeJS and NPM](https://gist.github.com/isaacs/579814)
-* [Server side REST API](https://www.backand.com)
+To run this project, you will need:
+* [Git](http://git-scm.com/), for source control
+* [NodeJS and NPM](https://gist.github.com/isaacs/579814), to serve as a webserver
+* [Backand's Server side REST API](https://www.backand.com), to control the back-end of the application.
 
 ## Getting Started
-1. Create new App in Backand with the following model:
+To get the application running, perform the following steps:
+
+
+1. Create a new application in Backand.
+2. After creation, paste the following JSON into the "Custom Model" text box on the "New Hosted Database" tab:
 
   ```json
-  [
+[
   {
     "name": "users",
     "fields": [
@@ -56,7 +63,9 @@ You will need:
   }
 ]
   ```
-2. Run the following commands
+3. Press the "Create" button to create your database.
+4. Open a console on your machine, and navigate to (or create) a directory to hold the source code.
+5. Run the following commands from the console:
 
   ```bash
   git clone https://github.com/backand/angular-yeoman-todos.git
@@ -67,13 +76,15 @@ You will need:
   grunt serve
   ```
 
-3. Navigate to [localhost:9000](http://localhost:9000).
+6. Navigate to [localhost:9000](http://localhost:9000) to see the basic app in action!
   
-## App Configuration
-4. In the app that you just created, please perform the following configuration   
-  1. **Security & Auth**   
-  Go to the *Security & Auth --> Configuration* page
-    1. **Enable Anonymous Access**   
+### Configuring the Application
+1. Log in to [Backand](www.backand.com)
+2. Open the application that you created in the previous section
+3. Configure your appliction using the following steps:   
+  1. Open the  **Security & Auth** tab
+  1. Go to the *Security & Auth --> Configuration* page
+  1. **Enable Anonymous Access**   
     In the *Anonymous Access* (first section on the page) switch to enable.
     In the select options chose *ReadOnly*.
     This means that users can access without username and password and they will be assigned with a *ReadOnly* role
@@ -296,9 +307,9 @@ Check the new user checkbox and enter the sign up detail. When you will sign in 
   This is it, your app is ready. You can test it by sign in with a User role and see that you can only delete and update the todo items you created while *Admin* can still do everything.
 ## Testing
 
-Running `grunt test` will run the unit tests with karma.
+As a part of the installation process, NPM installed Karma for unit testing. Run `grunt test` to execute all of the unit tests in the syste,.
 
-### Running your own API server
+### Building your own application
 
-If you would like to run your own api, then sign-up to [Backand](https://wwww.backand.com) and create new app
+Now that you've implemented a Todo application, you can build your own. Simply sign-up at [Backand's website](https://wwww.backand.com) and create a new app to get started!
 
