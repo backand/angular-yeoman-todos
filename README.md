@@ -81,32 +81,28 @@ To get the application running, perform the following steps:
 ### Configuring the Application
 1. Log in to [Backand](www.backand.com)
 2. Open the application that you created in the previous section
-3. Configure your appliction using the following steps:   
-  1. Open the  **Security & Auth** tab
-  1. Go to the *Security & Auth --> Configuration* page
-  1. **Enable Anonymous Access**   
-    In the *Anonymous Access* (first section on the page) switch to enable.
-    In the select options chose *ReadOnly*.
-    This means that users can access without username and password and they will be assigned with a *ReadOnly* role
-    2. **New Users Role**   
-    In the *Public App* section (second section in the page), in the select options chose *User*.
-    This means that when new users are created they are assigned with a *User* role.
-    By switching the *Public App* on and off you can decide if only users that were invited by the *Admin* can sign up to the app or that everyone can sign up. This switch between *Public* and *Private* does not require any change in your code.
-    3. **Custom Registration Page URL**  
-    Set this field to *http://localhost:9000/#/login*  
-    When users are invited by *Admin* they will get an invitation email with a link to the sign up page of the app.
-    You will need to change this local url to a real url after you publish your app  
-    4. **Custom Verified Email Page URL**  
-    Set this field also to *http://localhost:9000/#/login*  
-    In this app the same page is used both for sign in and sign up.
-    After users register they receive a verification email to verifiy their identity by clicking on a link on the email, 
-    After they click on the link they are redirected to the url above.
-    You will need to change this local url to a real url after you publish your app  
-    5. **Security Actions**  
-    Backand is an ORM system which means that every object has a compatible database table.
-    In the following actions we are going to use action of "Transactional sql script" type which means that you can execute sql statements directly in the database. 
-    In order to manage security, Backand has an internal users table. We recommend that you will add your own users table and sync it with Backand users. In this *Todos* example we added the users object for that purpose.
-    The actions on the *Security & Auth* page are triggered by any CRUD operation on the internal Backand users.
+3. Configure your appliction by performing the following steps:   
+  4. Configure the security settings 
+    1. Open the  **Security & Auth** tab
+    1. Go to the *Security & Auth --> Configuration* page
+    1. **Enable Anonymous Access**:
+      Upon completion, this will allow users to access your application without logging in, and will assign these users a *ReadOnly* role.
+      1. In the first secction of the page, entitled *Anonymous Access* click the switch on the right. It should turn green to indicate that anonymous access is enabled.
+      1. In the drop-down that appeared beneath *Anonymous Access*, select *ReadOnly*.
+    1. **Set the New Users Role** by selecting *User* from the dropdown beneath the *Public App* heading. This will set the role that new users are given when they sign up for - or are created in - your application. By setting this to *User*, all new users will be created with the *User* role already assigned.
+    1. (optional) Click on the switch on the right side of the panel to make your application Public. When enabled, this allows any user that can register with your application to do so. When disabled, all new users must be invited by a user with the *Admin* role. This switch between *Public* and *Private* modes does not require a code change - it happens behind the scenes.
+    3. In the section labeled **Custom Registration Page URL**, set the value of the textbox to `http://localhost:9000/#/login`. This sets the login page for your application to the instance of your application running locally. When users are invited by an *Admin*, they will get an invitation email with this link included. **NOTE**: You will need to change this URL when you publish your app  
+      4. **Custom Verified Email Page URL**  
+      Set this field also to *http://localhost:9000/#/login*  
+      In this app the same page is used both for sign in and sign up.
+      After users register they receive a verification email to verifiy their identity by clicking on a link on the email, 
+      After they click on the link they are redirected to the url above.
+      You will need to change this local url to a real url after you publish your app  
+      5. **Security Actions**  
+      Backand is an ORM system which means that every object has a compatible database table.
+      In the following actions we are going to use action of "Transactional sql script" type which means that you can execute sql statements directly in the database. 
+      In order to manage security, Backand has an internal users table. We recommend that you will add your own users table and sync it with Backand users. In this *Todos* example we added the users object for that purpose.
+      The actions on the *Security & Auth* page are triggered by any CRUD operation on the internal Backand users.
     Backand prepared 3 predefined actions for you that you can customize in order to sync Backand users with your app users.
       1. **Create My App User**  
       On the *Security & Auth* page go to the *Actions* section and click on *Create My App User*
