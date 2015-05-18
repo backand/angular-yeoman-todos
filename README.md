@@ -92,7 +92,7 @@ Perform the following steps to set the security settings for your application
 ##### Configure Security Settings - User settings
 1. **Enable Anonymous Access**:
   Upon completion, this will allow users to access your application without logging in, and will assign these users a *ReadOnly* role.
-  1. In the first secction of the page, entitled *Anonymous Access* click the switch on the right. It should turn green to indicate that anonymous access is enabled.
+  1. In the first secction of the page, entitled *Anonymous Access*, click the switch on the right. It should turn green to indicate that anonymous access is enabled.
   1. In the drop-down that appeared beneath *Anonymous Access*, select *ReadOnly*.
 1. **Set the New Users Role** by selecting *User* from the dropdown beneath the *Public App* heading. This will set the role that new users are given when they sign up for - or are created in - your application. By setting this to *User*, all new users will be created with the *User* role already assigned.
 1. (optional) Click on the switch on the right side of the panel to make your application Public. When enabled, this allows any user that can register with your application to do so. When disabled, all new users must be invited by a user with the *Admin* role. This switch between *Public* and *Private* modes does not require a code change - it happens behind the scenes.
@@ -153,30 +153,34 @@ While you can get by using just Backand's internal *Users* table, We highly reco
         ```sql
         delete `users` where `email` = '{{Username}}'
         ```  
-        Change the *Where Condition* from *false* to *true* and *Save* the action.
-    6. **Anonymous Token**  
-    For an anonymous user to connect with backand you need the *Anonymous Token*
-    Copy the *Anonymous Token* from the *Security & Auth* page and replace it in the app.js following code:
+  1. Change the *Where Condition* from *false* to *true* and *Save* the action.
+
+##### Configure Security Settings - **Anonymous Token**
+
+For an anonymous user to connect with backand you need the *Anonymous Token* provided on the *Security & Auth Configuration* page. 
+
+To enable anonymous access in your application, first copy the *Anonymous Token* from the *Security & Auth* page. Once that is done, add it to app.js in your repository by modifying the following code to reflect your new anonymous token's value:
     
       ```javascript
       BackandProvider.setAnonymousToken('c3b61359-6843-440b-8a39-1d54f5b907be');
       ```
-    7. **Signup Token**  
-    You need the sign up token for the sign up as well
-    Copy the *Signup Token* from the *Security & Auth* page and replace it in the app.js following code:  
-    
+##### Configure Security Settings - **Signup Token**  
+
+Much as you needed a token to enable anonymous access, you will also need a token for user registration.
+
+To enable user registration ("sign up") in your application, first copy the *API Signup Token* from the *Security & Auth* page. Once that is done, add it to app.js in your repository by modifying the following code to reflecct your new sign up token's value:  
       ```javascript
       BackandProvider.setSignUpToken('035F6716-4E87-46FB-A8C9-2C5212A37E80');
       ```
-  2. **Manual Sync for My User**  
-  If you go to *Security & Auth --> Team*, you will find your email as the only team member in the team.
-  That is because when you create a Backand app you automatically assigned when an *Admin* role as a team member.
-  That happened before you created the sync actions, so you need to manually sync yourself.
-  Backand has a tool for that.
-  Go to *Objects --> users* click on the last tab *REST API*
-  Click on *POST /objects/{name}*
-  Paste the following json inside the object text area and replace <your email> and <your name> with the values from the single row in the *team member*:
+### Configuring your application's code and access
+#### Manually Syncing Your User
 
+If you navigate to *Security & Auth --> Team*, you will find that your email is the only member in the team. This happens when you create the Backand application. Backand automatically assigns the creating user the *Admin* role as a team member. As this happened before the above synchronization actions were created, you need to manually sync your admin user into the application's custom *User* table. Luckily, Backand has a tool for that! To manually sync your user:
+
+1. Navigate to *Objects --> users* 
+2. Click on the tab *REST API*
+3. Click on *POST /objects/{name}*
+4. Paste the following json inside the object text area:
     ```json
     {
       "email": "<your email>",
@@ -184,17 +188,35 @@ While you can get by using just Backand's internal *Users* table, We highly reco
       "role": "Admin"
     }
     ```
-  and click on Try it Out!
-  this will manually sync your Backand user with your app's users
-  That is the only time you will need to perform a manual sync,
-  Later when you will invite additional team members and users, they will automatically synced into your app's users
-  3. Invite Users
-  Now you may invite users into your app, to do that go to *Security & Auth --> Users* and enter an email in the *invite user(s)* input box. please use a valid email that you can receive the emails that Backand will send. Click on *Invite User(s)* button. A new user with a *User* role will be added to the users list. You will get an invitation email for this user email address. On the email, click on the invitation link, this will navigate to the sign in/sign up page to complete the sign in process.
-Check the new user checkbox and enter the sign up detail. When you will sign in with this user you should only be able to update or delete the items that this user created. But this won't happen until you finish the next steps.
-  4. Set Current User Validation
-  If you sign in as with a *User* role and with an *Admin* role, you can see that both roles can do CRUD for all the todo items. 
-  To ensure that users with *Admin* role can perform CRUD for all items, users with *User* role can perform CRUD just for their own items and users with *ReadOnly* role can only read items, you need to write some server side javascript.  
-  Go to *Objects --> todo* and click on the *Actions* tab, click on the *New Action* button, on the *Select Trigger...*, select *Create - during data saving before it is committed*. Leave the *Input Parameters* empty and in the *Type* select *Server side javascript code*. A text area for javascript code will show. Please paste the following code inside the function body:
+5. Replace <your email> and <your name> in the JSON above with the values from the single row in the *team member*
+6. Click *Try it Out*!
+  
+This will manually sync your Backand user with the rest of your app's users. **NOTE** - this should be the only time you need to perform a manual sync. When additional users and team members are invited or register, they will be automatically synced into your application's *User* table via the three custom actions we modified above.
+  
+## Invite Users to the application
+
+Once you have completed the above, you are ready to begin inviting users to your application! To invite new users:
+
+1. Navigate to *Security & Auth --> Users* 
+2. Enter an email in the *invite user(s)* input box. Please use a valid email that is able to receive messages sent by Backand. 
+3. Click on *Invite User(s)* button. A new user will be added to the users list, and assigned the *User*. This will also trigger an invitation email that is sent to the entered email address.
+4. Open the email message.
+5. Click on the invitation link. This will navigate to the sign in/sign up page to complete the sign in process.
+6. Check the new user checkbox and enter the sign up detail. 
+
+At this point, when this new user signs in they will have full read-only access to the application, but will only be able to update or delete objects that they personally created. However, in order to enable this behavior we have just a few more steps to follow!
+
+## Set Current User Validation
+If you sign in as a user with a *User* role, or with a user with the *Admin* role, you should see that both roles share the same set of permissions. In other words, both types of users have full access to the database! Below, we will modify the *User* role to restrict their database permissions to only allow modifications or deletions of objects that they have personally created, and will also ensure that the *ReadOnly* role can, indeed, only read objects. In order to do this, we need to write some server-side Javascript in the Backand dashboard. 
+
+### Modifying the Create Action for Todo Objects
+1. Go to *Objects --> todo* 
+2. Click on the *Actions* tab
+3. Click on the *New Action* button
+4. In the *Event Trigger...* dropdown, select *Create - during data saving before it is committed*
+5. Leave the *Input Parameters* empty
+6. In the *Type* dropdown, select *Server side javascript code*. A text area containing a JavaScript function will be displayed. 
+7. Paste the following code into the body of the provided function:
 
   ```javascript
     // if the current user has an *Admin* role then he is allowed to create a todo for another user
@@ -229,10 +251,18 @@ Check the new user checkbox and enter the sign up detail. When you will sign in 
         throw new Error('Please create todo only for yourself.');
 	  return {};
   ```  
-  In the *name your action* input box enter *Validate current user on create* and save the action.  
-  a very similar verification is needed in the update of a *todo* item. The differece is that we also need to validate that users with *User* role do not change the creator of the todo. 
-  click on the *New Action* button, on the *Select Trigger...*, select *Update - during data saving before it is committed*. Leave the *Input Parameters* empty and in the *Type* select *Server side javascript code*. A text area for javascript code will show.
-  In the javascript text area, please enter the following code:
+8. In the *name your action* input box enter *Validate current user on create*
+9. Save the action.  
+
+### Modifying the Update Action for Todo Objects
+
+A similar modification needs to be made for when a *todo* item is updated. The only differece here is that we also need to validate that users with *User* role cannot change the creator of the *todo* item. To make the modifications for the Update action, perform the following steps: 
+
+1. Click on the *New Action* button
+2. In the *Select Trigger...* dropdown, select *Update - during data saving before it is committed*
+3. Leave the *Input Parameters* empty
+4. In the *Type* dropdown, select *Server side javascript code*. A text area containing a JavaScript function will be displayed.
+5. Enter the following code as the body of the provided JavaScript function:
   ```javascript
     // if the current user has an *Admin* role then he is allowed to update a todo for other users
     if (userProfile.role == "Admin")
@@ -272,10 +302,17 @@ Check the new user checkbox and enter the sign up detail. When you will sign in 
         throw new Error('You can only update your own todo.');
 	return {};
   ```
-  Name the action *Validate current user on update*.    
-  In delete requests there is no user input, so you just need to verify that the item you about to delete was created by the current user.
-  Click on the *New Action* button, on the *Select Trigger...*, select *Delete - during recored deleted before it is committed*. Leave the *Input Parameters* empty and in the *Type* select *Server side javascript code*. A text area for javascript code will show.
-  In the javascript text area, please enter the following code:
+6. Name the action *Validate current user on update*.    
+
+
+### Modifying the Create Action for Todo Objects
+There is no user input for delete requests, so you only need to verify that the item you about to delete was created by the current user.  To make the modifications for the Update action, perform the following steps: 
+
+1. Click on the *New Action* button
+2. In the *Select Trigger...* dropdown, select *Delete - during recored deleted before it is committed*.
+3. Leave the *Input Parameters* empty 
+4. In the *Type* dropdown, select *Server side javascript code*.  A text area containing a JavaScript function will be displayed.
+5. Enter the following code as the body of the provided JavaScript function:
   
   ```javascript
     // if the current user has an *Admin* role then he is allowed to delete a todo that was created by other users
@@ -308,14 +345,16 @@ Check the new user checkbox and enter the sign up detail. When you will sign in 
         throw new Error('You can only delete your own todo.');
     return {};
   ```
-  Name the action *Validate current user on delete*. 
-  
-  This is it, your app is ready. You can test it by sign in with a User role and see that you can only delete and update the todo items you created while *Admin* can still do everything.
+6. Name the action *Validate current user on delete*. 
+
+## Finished!
+At this point, your application is ready to use! You can test the security roles by signing in with a User role and see that you can only delete and update the todo items you create. If you then log out and log back in as a user with the *Admin* role, you will see that you can now perform all CRUD actions on every object in the database! You can also add a new user and see that they are assigned the *User* role by default, and not able to update records that are not their own.
+
 ## Testing
 
-As a part of the installation process, NPM installed Karma for unit testing. Run `grunt test` to execute all of the unit tests in the syste,.
+As a part of the installation process, NPM installed Karma for unit testing. Run `grunt test` to execute all of the unit tests in the system.
 
-### Building your own application
+## Building your own application
 
 Now that you've implemented a Todo application, you can build your own. Simply sign-up at [Backand's website](https://wwww.backand.com) and create a new app to get started!
 
