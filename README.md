@@ -40,7 +40,7 @@ To get the application running, perform the following steps:
       {
         "name": "role",
         "type": "ShortText"
-      }
+      }BackandProvider
     ]  
   },
   {
@@ -170,9 +170,11 @@ To enable anonymous access in your application, first copy the *Anonymous Token*
 Much as you needed a token to enable anonymous access, you will also need a token for user registration.
 
 To enable user registration ("sign up") in your application, first copy the *API Signup Token* from the *Security & Auth* page. Once that is done, add it to app.js in your repository by modifying the following code to reflecct your new sign up token's value:  
-      ```javascript
-      BackandProvider.setSignUpToken('035F6716-4E87-46FB-A8C9-2C5212A37E80');
-      ```
+
+```javascript
+	BackandProvider.setSignUpToken('035F6716-4E87-46FB-A8C9-2C5212A37E80');
+```
+      
 ### Configuring your application's code and access
 #### Manually Syncing Your User
 
