@@ -160,10 +160,11 @@ While you can get by using just Backand's internal *Users* table, We highly reco
 For an anonymous user to connect with backand you need the *Anonymous Token* provided on the *Security & Auth Configuration* page. 
 
 To enable anonymous access in your application, first copy the *Anonymous Token* from the *Security & Auth* page. Once that is done, add it to app.js in your repository by modifying the following code to reflect your new anonymous token's value:
-    
-      ```javascript
-      BackandProvider.setAnonymousToken('c3b61359-6843-440b-8a39-1d54f5b907be');
-      ```
+
+```javascript
+	BackandProvider.setAnonymousToken('c3b61359-6843-440b-8a39-1d54f5b907be');
+```
+
 ##### Configure Security Settings - **Signup Token**  
 
 Much as you needed a token to enable anonymous access, you will also need a token for user registration.
