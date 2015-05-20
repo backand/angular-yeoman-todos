@@ -112,7 +112,6 @@ While you can get by using just Backand's internal *Users* table, We highly reco
   1. On the *Security & Auth* page go to the *Actions* section and click on *Create My App User*
   1. Click on the *Edit Action* button.
   1. Change the following script:
-
         ```sql
         insert into `<your app users table here>` (`email`,`name`,`role`...) values ('{{Username}}','{{FirstName}}','{{Role}}'...) 
         ```  
