@@ -16,6 +16,16 @@ To run this project, you will need:
 * [Git](http://git-scm.com/), for source control
 * [NodeJS and NPM](https://gist.github.com/isaacs/579814), to serve as a webserver
 * [Backand's Server side REST API](https://www.backand.com), to control the back-end of the application.
+* Run the following commands
+
+  ```bash
+  git clone --branch todo-with-users https://github.com/backand/angular-yeoman-todos.git
+  cd todo-with-users
+
+  npm install
+  bower install
+  grunt serve
+  ```
 
 ## Getting Started
 To get the application running, perform the following steps:
