@@ -132,7 +132,8 @@ While you can get by using just Backand's internal *Users* table, We highly reco
         ```sql
         update `<your app users table here>` set `name` = '{{FirstName}}', `role` = '{{durados_User_Role}}' where `email` = '{{Username}}'  
         ```  
-      to:
+      to:  
+      
         ```sql
         update `users` set `name` = '{{FirstName}}',  `role` = '{{durados_User_Role}}' where `email` = '{{Username}}'
         ```  
