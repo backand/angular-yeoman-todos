@@ -19,7 +19,7 @@ To run this project, you will need:
 * Run the following commands
 
   ```bash
-  git clone --branch todo-with-users https://github.com/backand/angular-yeoman-todos.git
+  git clone https://github.com/backand/angular-yeoman-todos.git -b todo-with-users todo-with-users
   cd todo-with-users
 
   npm install
