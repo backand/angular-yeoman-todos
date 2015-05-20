@@ -40,7 +40,7 @@ To get the application running, perform the following steps:
       {
         "name": "role",
         "type": "ShortText"
-      }BackandProvider
+      }
     ]  
   },
   {
