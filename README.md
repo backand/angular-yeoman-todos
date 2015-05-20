@@ -145,12 +145,12 @@ While you can get by using just Backand's internal *Users* table, We highly reco
   1. Click on the *Edit Action* button.
   1. Change:
         ```sql
-        delete `<your app users table here>` where `email` = '{{Username}}'
+        delete `<your app users table here>` where `email` = '{{Username}}'  
         ```  
       to  
       
         ```sql
-        delete `users` where `email` = '{{Username}}'
+        delete `users` where `email` = '{{Username}}'  
         ```  
   1. Change the *Where Condition* from *false* to *true* and *Save* the action.
 
