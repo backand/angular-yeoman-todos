@@ -15,7 +15,7 @@
          * init by reading the to do list from the database
          */
         function init() {
-            TodoService.tableName = 'todo';
+            TodoService.name = 'todo';
             readTodoList();
         }
 

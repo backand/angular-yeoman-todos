@@ -1,16 +1,9 @@
 (function() {
   'use strict';
 
-  function httpInterceptor($cookieStore, $q, $location, $injector) {
+  function httpInterceptor($q, $location, $injector) {
     return {
-        request: function(config) {
-          return $injector.invoke(function(Backand) {
-            if ($cookieStore.get('backand_token')) {
-                config.headers['Authorization'] = $cookieStore.get('backand_token');
-            }
-            return config;
-          });
-      },
+
       requestError: function(rejection) {
         return $q.reject(rejection);
       },
@@ -18,11 +11,10 @@
         return response;
       },
       responseError: function(rejection) {
-        return $injector.invoke(function(Backand) {
+        return $injector.invoke(function() {
           //if not sign in screen :
           if ((rejection.config.url+"").indexOf('token') === -1){
             if (rejection.status === 401) {
-              $cookieStore.remove('backand_token');
               $location.path('/login');
               return $q.reject(rejection);
             }

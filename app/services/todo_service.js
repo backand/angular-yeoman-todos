@@ -6,14 +6,14 @@
     function TodoService($http, $cookieStore, Backand) {
 
         var self = this;
-        var baseUrl = '/1/table/data/';
+        var baseUrl = '/1/objects/';
 
-        self.tableName = null;
+        self.name = null;
 
         self.readAll = function () {
             return $http({
                 method: 'GET',
-                url: Backand.configuration.apiUrl + baseUrl + self.tableName
+                url: Backand.getApiUrl() + baseUrl + self.name
             }).then(function(response) {
                 return response.data.data;
             });
@@ -22,7 +22,7 @@
         self.readOne = function (id) {
             return $http({
                 method: 'GET',
-                url: Backand.configuration.apiUrl + baseUrl + self.tableName + '/' + id
+                url: Backand.getApiUrl() + baseUrl + self.name + '/' + id
             }).then(function(response) {
                 return response.data;
             });
@@ -31,7 +31,7 @@
         self.create = function (data) {
             return $http({
                 method: 'POST',
-                url : Backand.configuration.apiUrl + baseUrl + self.tableName,
+                url : Backand.getApiUrl() + baseUrl + self.name,
                 data: data,
                 params: {
                     returnObject: true
@@ -44,7 +44,7 @@
         self.update = function (id, data) {
             return $http({
                 method: 'PUT',
-                url : Backand.configuration.apiUrl + baseUrl + self.tableName + '/' + id,
+                url : Backand.getApiUrl() + baseUrl + self.name + '/' + id,
                 data: data
             }).then(function(response) {
                 return response.data;
@@ -54,13 +54,13 @@
         self.delete = function (id) {
             return $http({
                 method: 'DELETE',
-                url : Backand.configuration.apiUrl + baseUrl + self.tableName + '/' + id
+                url : Backand.getApiUrl() + baseUrl + self.name + '/' + id
             })
         };
 
         self.logout = function(){
             Backand.signout();
-            $cookieStore.remove(Backand.configuration.tokenName);
+            $cookieStore.remove(Backand.tokenName);
         }
 
     }

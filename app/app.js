@@ -10,8 +10,10 @@ angular.module('mytodoApp', [
   'mytodoApp.config.interceptors',
   'backand'
 ])
-  .config(['$stateProvider','$httpProvider', '$urlRouterProvider', function($stateProvider, $httpProvider, $urlRouterProvider) {
-    $httpProvider.interceptors.push('todoHttpInterceptor');
+  .config(['$stateProvider','$httpProvider', '$urlRouterProvider', 'BackandProvider', function($stateProvider, $httpProvider, $urlRouterProvider, BackandProvider) {
+    BackandProvider.manageDefaultHeaders();
+    BackandProvider.setAnonymousToken('Your Anonymous Token');
+    BackandProvider.setSignUpToken('Your SignUp Token');$httpProvider.interceptors.push('todoHttpInterceptor');
     $urlRouterProvider.otherwise("/");
     $stateProvider
       .state('todos', {
