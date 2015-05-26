@@ -8,9 +8,12 @@ You will need:
 * [Server side REST API](https://www.backand.com)
 
 ## Getting Started
-1. Create new App in Backand with the following model:
- 
-```json
+To get the application running, perform the following steps:
+
+1. Create a new application in Backand.
+2. After creation, paste the following JSON into the "Custom Model" text box on the "New Hosted Database" tab:
+
+  ```json
 [
   {
     "name": "todo",
@@ -26,9 +29,8 @@ You will need:
     ]
   }
 ]
-```
-
-2. Run the following commands
+  ```
+3. Run the following commands from the console:
 
   ```bash
   git clone https://github.com/backand/angular-yeoman-todos.git
@@ -39,9 +41,9 @@ You will need:
   grunt serve
   ```
 
-3. Navigate to [localhost:9000](http://localhost:9000).
+4. Navigate to [localhost:9000](http://localhost:9000).
 
-4. Hooray! Now you can interact with API running on Backand! How simple was that??
+5. Hooray! Now you can interact with API running on Backand! How simple was that??
 
 ## Testing
 
