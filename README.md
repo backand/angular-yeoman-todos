@@ -8,7 +8,27 @@ You will need:
 * [Server side REST API](https://www.backand.com)
 
 ## Getting Started
-1. Run the following commands
+1. Create new App in Backand with the following model:
+ 
+```json
+[
+  {
+    "name": "todo",
+    "fields": [
+      {
+        "name": "description",
+        "type": "ShortText"
+      },
+      {
+        "name": "completed",
+        "type": "Boolean"
+      }
+    ]
+  }
+]
+```
+
+2. Run the following commands
 
   ```bash
   git clone https://github.com/backand/angular-yeoman-todos.git
@@ -19,9 +39,9 @@ You will need:
   grunt serve
   ```
 
-2. Navigate to [localhost:9000](http://localhost:9000).
+3. Navigate to [localhost:9000](http://localhost:9000).
 
-3. Hooray! Now you can interact with API running on Backand! How simple was that??
+4. Hooray! Now you can interact with API running on Backand! How simple was that??
 
 ## Testing
 
@@ -30,4 +50,3 @@ Running `grunt test` will run the unit tests with karma.
 ### Running your own API server
 
 If you would like to run your own api, then sign-up to [Backand](https://wwww.backand.com) and create new app
-
