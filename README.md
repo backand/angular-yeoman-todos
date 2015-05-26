@@ -8,7 +8,6 @@ You will need:
 * [Server side REST API](https://www.backand.com)
 
 ## Getting Started
-
 1. Create new App in Backand with the following model:
  
 ```json
