@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  function httpInterceptor($q, $location, $injector) {
+  function httpInterceptor($q, $location) {
     return {
 
       requestError: function(rejection) {
@@ -11,20 +11,17 @@
         return response;
       },
       responseError: function(rejection) {
-        return $injector.invoke(function() {
-          //if not sign in screen :
-          if ((rejection.config.url+"").indexOf('token') === -1){
-            if (rejection.status === 401) {
-              $location.path('/login');
-              return $q.reject(rejection);
-            }
+        //if not sign in screen :
+        if ((rejection.config.url+"").indexOf('token') === -1){
+          if (rejection.status === 401) {
+            $location.path('/login');
           }
-          return $q.reject(rejection);
-        });
+        }
+        return $q.reject(rejection);
       }
     };
   }
 
   angular.module('mytodoApp.config.interceptors', [])
-    .factory('todoHttpInterceptor', ['$cookieStore','$q', '$location', '$injector', httpInterceptor]);
+    .factory('todoHttpInterceptor', ['$q', '$location', httpInterceptor]);
 })();
