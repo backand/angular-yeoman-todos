@@ -13,7 +13,7 @@ To get the application running, perform the following steps:
 1. Create a new application in Backand.
 2. After creation, paste the following JSON into the "Custom Model" text box on the "New Hosted Database" tab:
 
-  ```json
+```json
 [
   {
     "name": "todo",
@@ -29,7 +29,7 @@ To get the application running, perform the following steps:
     ]
   }
 ]
-  ```
+```
 3. Run the following commands from the console:
 
   ```bash
