@@ -19,7 +19,7 @@ angular.module('mytodoApp', [
     $urlRouterProvider.otherwise("/");
     $stateProvider
       .state('todos', {
-        url: '/',
+        url: '/todo',
         templateUrl: 'views/main/main.html',
         controller: 'MainCtrl as vm'
       })
