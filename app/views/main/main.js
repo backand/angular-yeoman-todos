@@ -7,8 +7,10 @@
      * # MainCtrl
      * Main controller of the todoApp fot viewing and adding to do items
      */
+    angular.module('mytodoApp')
+        .controller('MainCtrl', ['$state','TodoService', MainCtrl]);
 
-    function MainCtrl($state, $cookieStore, TodoService) {
+    function MainCtrl($state, TodoService) {
         var self = this;
 
         self.currentUserInfo = null;
@@ -136,5 +138,4 @@
         init();
     }
 
-    angular.module('mytodoApp').controller('MainCtrl', MainCtrl);
 })();

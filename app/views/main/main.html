@@ -1,10 +1,13 @@
 <div class="container">
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <a href="" ng-click="vm.logout()">{{vm.signInTitle}}</a>
         </div>
-        <div class="col-sm-6 pull-right">
+        <div class="col-sm-4 pull-left">
             <span>{{vm.getCurrentUserName()}}</span>
+        </div>
+        <div class="col-sm-4 pull-right">
+            <a href="" ui-sref="change">Change Password</a>
         </div>
     </div>
 

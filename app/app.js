@@ -12,10 +12,12 @@ angular.module('mytodoApp', [
 ])
   .config(['$stateProvider','$httpProvider', '$urlRouterProvider', 'BackandProvider', function($stateProvider, $httpProvider, $urlRouterProvider, BackandProvider) {
     BackandProvider.manageDefaultHeaders();
-    BackandProvider.setAnonymousToken('827acc4f-8558-4194-a54d-9551618efd83');
-    BackandProvider.setSignUpToken('82146253-4715-44bd-b9ba-f666d6c182a3');
+    BackandProvider.setAnonymousToken('89aa260f-1995-4d58-8466-fa3bfbcb6db2');
+    BackandProvider.setSignUpToken('27d6fc59-d0cd-491a-8c4e-02383f3b7e3c');
+
+    BackandProvider.setApiUrl('http://api.backand.info:8099');
+
     $httpProvider.interceptors.push('todoHttpInterceptor');
-    $urlRouterProvider.otherwise("/");
     $stateProvider
       .state('todos', {
         url: '/',
@@ -26,5 +28,16 @@ angular.module('mytodoApp', [
         url: '/login',
         templateUrl: 'views/login/login.html',
         controller: 'LoginCtrl as vm'
+      })
+      .state('change', {
+        url: '/change',
+        templateUrl: 'views/login/change-password.html',
+        controller: 'ChangeCtrl as vm'
+      })
+      .state('reset', {
+        url: '/reset',
+        templateUrl: 'views/login/reset-password.html',
+        controller: 'ResetCtrl as vm'
       });
-  }]);
+      $urlRouterProvider.otherwise("/");
+    }]);

@@ -4,7 +4,7 @@
     <h4>Use your Backand username and password to login</h4>
 </div>
 <div class="body">
-    <form class="form" name="form" ng-submit="vm.signIn()" >
+    <form class="form" name="form" ng-submit="vm.signIn()" novalidate >
         <fieldset>
             <div class="form-group">
                 <input type="email"
@@ -76,6 +76,9 @@
                         class="btn btn-primary pull-right">
                     Sign up
                 </button>
+            </div>
+            <div class="form-group">
+                <a ui-sref="reset" href="">Forgot Password</a>
             </div>
         </fieldset>
     </form>
