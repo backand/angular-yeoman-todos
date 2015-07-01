@@ -16,16 +16,6 @@ To run this project, you will need:
 * [Git](http://git-scm.com/), for source control
 * [NodeJS and NPM](https://gist.github.com/isaacs/579814), to serve as a webserver
 * [Backand's Server side REST API](https://www.backand.com), to control the back-end of the application.
-* Run the following commands
-
-  ```bash
-  git clone https://github.com/backand/angular-yeoman-todos.git -b todo-with-users todo-with-users
-  cd todo-with-users
-
-  npm install
-  bower install
-  grunt serve
-  ```
 
 ## Getting Started
 To get the application running, perform the following steps:
@@ -172,7 +162,7 @@ For an anonymous user to connect with backand you need the *Anonymous Token* pro
 To enable anonymous access in your application, first copy the *Anonymous Token* from the *Security & Auth* page. Once that is done, add it to app.js in your repository by modifying the following code to reflect your new anonymous token's value:
 
 ```javascript
-	BackandProvider.setAnonymousToken('c3b61359-6843-440b-8a39-1d54f5b907be');
+	BackandProvider.setAnonymousToken('Your Anonymous Token');
 ```
 
 ##### Configure Security Settings - **Signup Token**  
@@ -182,7 +172,7 @@ Much as you needed a token to enable anonymous access, you will also need a toke
 To enable user registration ("sign up") in your application, first copy the *API Signup Token* from the *Security & Auth* page. Once that is done, add it to app.js in your repository by modifying the following code to reflecct your new sign up token's value:  
 
 ```javascript
-	BackandProvider.setSignUpToken('035F6716-4E87-46FB-A8C9-2C5212A37E80');
+	BackandProvider.setSignUpToken('Your SignUp Token');
 ```
       
 ### Configuring your application's code and access
