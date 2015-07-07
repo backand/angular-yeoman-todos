@@ -13,23 +13,21 @@ To get the application running, perform the following steps:
 1. Create a new application in Backand.
 2. After creation, paste the following JSON into the "Custom Model" text box on the "New Hosted Database" tab:
 
-  ```json
-  [
-    {
-      "name": "todo",
-      "fields": [
-        {
-          "name": "description",
-          "type": "ShortText"
-        },
-        {
-          "name": "completed",
-          "type": "Boolean"
-        }
-      ]
+```json
+[
+  {
+    "name": "items",
+    "fields": {
+      "description": {
+        "type": "string"
+      },
+      "completed": {
+        "type": "boolean"
+      }
     }
-  ]
-  ```
+  }
+]
+```
 3. Run the following commands from the console:
 
   ```bash
