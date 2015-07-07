@@ -1,0 +1,12 @@
+<div class="row">
+    <div class="col-sm-4">
+        <a href="" ng-click="header.logout()">{{header.currentUser ? 'Sign Out' : 'Sign In'}}</a>
+    </div>
+    <div class="col-sm-4 pull-left">
+        <span>{{header.currentUser || 'Guest'}}</span>
+    </div>
+    <div class="col-sm-4 pull-right" ng-show="header.currentUser">
+        <a href="" ui-sref="changePassword">Change Password</a>
+    </div>
+</div>
+<ui-view></ui-view>

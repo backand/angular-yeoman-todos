@@ -9,13 +9,13 @@
      */
 
     angular.module('mytodoApp')
-        .controller('ChangeCtrl', ['Backand','$location','$state','TodoService', ChangeCtrl]);
+        .controller('ChangePasswordCtrl', ['$state', 'AuthService', ChangePasswordCtrl]);
 
-    function ChangeCtrl(Backand, $location, $state, TodoService) {
+    function ChangePasswordCtrl($state, AuthService) {
         var self = this;
         function init() {
             self.appName = 'todousers1';
-            self.currentUserInfo = TodoService.getCurrentUser();
+            self.currentUserInfo = AuthService.currentUser.name || $state.go('login');
         }
 
         self.update = function () {
@@ -26,19 +26,18 @@
                 self.error = 'Password must match';
             }
             else {
-                Backand.changePassword(self.oldPassword,self.newPassword)
+                AuthService.changePassword(self.oldPassword, self.newPassword)
                     .then(
                     function () {
-                        $location.path('/');
-                        $state.reload();
+                        self.oldPassword = self.newPassword = self.confirmPassword = null;
+                        self.success = 'Password was changed successfully.';
                     },
                     function (response) {
-                        console.log(response);
                         self.error = response && response.data || 'Unknown error from server';
                     }
                 )
             }
-        }
+        };
 
         init();
     }

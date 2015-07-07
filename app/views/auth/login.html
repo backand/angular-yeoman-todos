@@ -1,17 +1,18 @@
 <!-- Backand Login model -->
 <div class="header">
     <h2>Backand Login</h2>
-    <h4>Use your Backand username and password to login</h4>
+    <h4>Use your Backand username and password to login<br>or
+    <a ui-sref="todos">view the todo list as a guest (read only)</a></h4>
 </div>
 <div class="body">
-    <form class="form" name="form" ng-submit="vm.signIn()" novalidate >
+    <form class="form" name="form" ng-submit="login.authenticate()" novalidate >
         <fieldset>
             <div class="form-group">
                 <input type="email"
                        class="form-control"
                        name = "username"
                        placeholder="Your Backand username"
-                       ng-model = "vm.username"
+                       ng-model = "login.username"
                        ng-model-options="{debounce: 200}"
                        required>
                 <div class="text-danger" ng-show="form.username.$error.email">This is not a valid email.</div>
@@ -21,7 +22,7 @@
                        class="form-control"
                        name = "password"
                        placeholder="Your Backand password"
-                       ng-model = "vm.password"
+                       ng-model = "login.password"
                        ng-model-options="{debounce: 200}"
                        required>
             </div>
@@ -30,7 +31,7 @@
                        class="form-control"
                        name = "appName"
                        placeholder="Your Backand app name"
-                       ng-model = "vm.appName"
+                       ng-model = "login.appName"
                        ng-model-options="{debounce: 200}"
                        required>
             </div>
@@ -40,8 +41,9 @@
                         <input type="checkbox"
                                class="form-control"
                                name="newUser"
+                               id="newUser"
                                placeholder="New User"
-                               ng-model="vm.newUser"
+                               ng-model="login.newUser"
                                ng-model-options="{debounce: 200}"
                                style="width:initial; height:initial;">New User
                     </label>
@@ -52,36 +54,36 @@
                        class="form-control"
                        name="name"
                        placeholder="Your first name"
-                       ng-model="vm.firstName"
+                       ng-model="login.firstName"
                        ng-model-options="{debounce: 200}"
-                       ng-show="vm.newUser">
+                       ng-show="login.newUser">
             </div>
             <div class="form-group">
                 <input type="text"
                        class="form-control"
                        name="name"
                        placeholder="Your last name"
-                       ng-model="vm.lastName"
+                       ng-model="login.lastName"
                        ng-model-options="{debounce: 200}"
-                       ng-show="vm.newUser">
+                       ng-show="login.newUser">
             </div>
-            <div ng-hide="vm.newUser" class="form-group">
+            <div ng-hide="login.newUser" class="form-group">
                 <button type="submit"
                         class="btn btn-primary pull-right">
                     Sign in
                 </button>
             </div>
-            <div ng-show="vm.newUser" class="form-group">
+            <div ng-show="login.newUser" class="form-group">
                 <button type="submit"
                         class="btn btn-primary pull-right">
                     Sign up
                 </button>
             </div>
             <div class="form-group">
-                <a ui-sref="reset" href="">Forgot Password</a>
+                <a ui-sref="resetPassword" href="">Forgot Password</a>
             </div>
         </fieldset>
     </form>
-    <div ng-show="vm.error" class="alert alert-danger">{{vm.error}}</div>
-    <div ng-show="vm.success" class="alert alert-success">{{vm.success}}</div>
+    <div ng-show="login.error" class="alert alert-danger">{{login.error}}</div>
+    <div ng-show="login.success" class="alert alert-success">{{login.success}}</div>
 </div>

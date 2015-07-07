@@ -1,0 +1,41 @@
+<div class="container">
+
+    <h2>My todos</h2>
+
+    <!-- Todos input -->
+    <form role="form" ng-submit="todoList.addTodo()">
+        <div class="row">
+            <div class="input-group">
+                <input type="text" ng-model="todoList.todo" placeholder="What needs to be done?" class="form-control">
+                <span class="input-group-btn">
+                  <input type="submit" class="btn btn-primary" value="Add" ng-disabled="!todoList.todo">
+                </span>
+            </div>
+        </div>
+    </form>
+    <p></p>
+
+    <!-- Todos list -->
+    <div>
+        <p  class="input-group"
+            ng-repeat="todo in todoList.todos | orderBy:'-Id'"
+            style="padding:5px 10px; cursor: move;"
+            ng-class="{'todo-completed': todo.completed}">
+            <span class="input-group-btn">
+                <button class="btn"><input type="checkbox" class="btn btn-primary" ng-model="todo.completed" ng-click="todoList.updateTodo(todo)"></button>
+            </span>
+            <input  type="text"
+                    ng-disabled="todo.completed"
+                    ng-model="todo.description"
+                    ng-change="todoList.updateTodo(todo)"
+                    ng-model-options="{updateOn: 'blur'}"
+                    class="form-control" >
+            <span class="input-group-btn">
+                <button class="btn btn-danger" ng-click="todoList.removeTodo(todo)" aria-label="Remove">X</button>
+            </span>
+        </p>
+    </div>
+    <div ng-show="todoList.error" class="has-error">
+        <label class="form-control">{{todoList.error}}</label>
+    </div>
+</div>
