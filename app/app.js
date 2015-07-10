@@ -15,8 +15,6 @@ angular.module('mytodoApp', [
     BackandProvider.setAnonymousToken('89aa260f-1995-4d58-8466-fa3bfbcb6db2');
     BackandProvider.setSignUpToken('27d6fc59-d0cd-491a-8c4e-02383f3b7e3c');
 
-    BackandProvider.setApiUrl('http://api.backand.info:8099');
-
     $httpProvider.interceptors.push('todoHttpInterceptor');
     $stateProvider
       .state('todos', {
