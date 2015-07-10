@@ -27,39 +27,36 @@ To get the application running, perform the following steps:
   ```json
 [
   {
-    "name": "users",
-    "fields": [
-      {
-        "name": "email",
-        "type": "ShortText"
+    "name": "todo",
+    "fields": {
+      "created_By": {
+        "object": "users"
       },
-      {
-        "name": "name",
-        "type": "ShortText"
+      "description": {
+        "type": "string"
       },
-      {
-        "name": "role",
-        "type": "ShortText"
+      "completed": {
+        "type": "boolean"
       }
-    ]  
+    }
   },
   {
-    "name": "todo",
-    "fields": [
-      {
-        "name": "description",
-        "type": "ShortText"
+    "name": "users",
+    "fields": {
+      "todo": {
+        "collection": "todo",
+        "via": "created_By"
       },
-      {
-        "name": "completed",
-        "type": "Boolean"
+      "email": {
+        "type": "string"
       },
-      {
-        "name": "createdBy",
-        "type": "SingleSelect",
-        "relatedTable": "users"
+      "name": {
+        "type": "string"
+      },
+      "role": {
+        "type": "string"
       }
-    ]
+    }
   }
 ]
   ```

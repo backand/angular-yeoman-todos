@@ -8,34 +8,49 @@ angular.module('mytodoApp', [
   'ui.sortable',
   'LocalStorageModule',
   'mytodoApp.config.interceptors',
+  'mytodoApp.config.consts',
   'backand'
 ])
-  .config(['$stateProvider','$httpProvider', '$urlRouterProvider', 'BackandProvider', function($stateProvider, $httpProvider, $urlRouterProvider, BackandProvider) {
-    BackandProvider.manageDefaultHeaders();
-    BackandProvider.setAnonymousToken('89aa260f-1995-4d58-8466-fa3bfbcb6db2');
-    BackandProvider.setSignUpToken('27d6fc59-d0cd-491a-8c4e-02383f3b7e3c');
+  .config(['$stateProvider', '$httpProvider', '$urlRouterProvider', 'BackandProvider',
+    function ($stateProvider, $httpProvider, $urlRouterProvider, BackandProvider) {
+      BackandProvider.manageDefaultHeaders();
+      BackandProvider.setAnonymousToken('39b0464b-1e40-45c6-8a96-ec7d5622c4b1');
+      BackandProvider.setSignUpToken('7fa6102a-58df-4c0b-93af-c39e3d67dcb7');
 
-    $httpProvider.interceptors.push('todoHttpInterceptor');
-    $stateProvider
-      .state('todos', {
-        url: '/',
-        templateUrl: 'views/main/main.html',
-        controller: 'MainCtrl as vm'
-      })
-      .state('login', {
-        url: '/login',
-        templateUrl: 'views/login/login.html',
-        controller: 'LoginCtrl as vm'
-      })
-      .state('change', {
-        url: '/change',
-        templateUrl: 'views/login/change-password.html',
-        controller: 'ChangeCtrl as vm'
-      })
-      .state('reset', {
-        url: '/reset',
-        templateUrl: 'views/login/reset-password.html',
-        controller: 'ResetCtrl as vm'
-      });
+      $httpProvider.interceptors.push('todoHttpInterceptor');
+
       $urlRouterProvider.otherwise("/");
+
+      $stateProvider
+        .state('main', {
+          url: '/',
+          abstract: true,
+          templateUrl: 'views/main/header.html',
+          controller: 'HeaderCtrl as header'
+        })
+        .state('todos', {
+          url: '',
+          parent: 'main',
+          templateUrl: 'views/main/todoList.html',
+          controller: 'TodoListCtrl as todoList'
+        })
+        .state('changePassword', {
+          url: 'changePassword',
+          parent: 'main',
+          templateUrl: 'views/auth/change-password.html',
+          controller: 'ChangePasswordCtrl as changePassword'
+        })
+        .state('login', {
+          url: '/login',
+          templateUrl: 'views/auth/login.html',
+          controller: 'LoginCtrl as login',
+          params: {
+            error: null
+          }
+        })
+        .state('resetPassword', {
+          url: '/resetPassword',
+          templateUrl: 'views/auth/reset-password.html',
+          controller: 'ResetPasswordCtrl as resetPassword'
+        });
     }]);

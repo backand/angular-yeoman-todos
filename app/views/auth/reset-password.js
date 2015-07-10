@@ -9,15 +9,13 @@
      */
 
     angular.module('mytodoApp')
-        .controller('ResetCtrl', ['Backand','$location','$state', ResetCtrl]);
+        .controller('ResetPasswordCtrl', ['AuthService', '$location', '$state', ResetPasswordCtrl]);
 
-    function ResetCtrl(Backand, $location, $state) {
+    function ResetPasswordCtrl(AuthService, $location, $state) {
         var self = this;
         function init() {
             self.token = $location.search().token;
             self.sendEmail = !angular.isDefined(self.token);
-            self.appName = 'todousers1';
-
         }
 
         self.reset = function () {
@@ -25,13 +23,12 @@
             self.success = null;
 
             if (self.sendEmail) {
-                Backand.requestResetPassword(self.username,self.appName)
+                AuthService.requestResetPassword(self.username)
                     .then(
                     function () {
                         self.success = 'Please check your email to continue';
                     },
                     function (response) {
-                        console.log(response);
                         self.error = response && response.data || 'Unknown error from server';
                     }
                 )
@@ -41,19 +38,18 @@
                     self.error = 'Password must match';
                 }
                 else
-                Backand.resetPassword(self.newPassword,self.token)
+                    AuthService.resetPassword(self.newPassword, self.token)
                     .then(
                     function () {
-                        $location.path('/login');
-                        $state.reload();
+                        $state.go('login');
                     },
                     function (response) {
-                        console.log(response);
                         self.error = response && response.data || 'Unknown error from server';
                     }
                 )
             }
-        }
+        };
+
         init();
     }
 

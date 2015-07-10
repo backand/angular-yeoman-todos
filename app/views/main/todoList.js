@@ -8,29 +8,15 @@
      * Main controller of the todoApp fot viewing and adding to do items
      */
     angular.module('mytodoApp')
-        .controller('MainCtrl', ['$state','TodoService', MainCtrl]);
+        .controller('TodoListCtrl', ['TodoService', TodoListCtrl]);
 
-    function MainCtrl($state, TodoService) {
+    function TodoListCtrl(TodoService) {
         var self = this;
 
-        self.currentUserInfo = null;
-        self.currentUser = null;
-        self.signInTitle = "Sign In";
-        self.error = null;
         /**
          * init by reading the to do list from the database
          */
-        function init() {
-            
-            TodoService.tableName = 'todo';
-            readTodoList();
-
-            self.currentUser = TodoService.getCurrentUser();
-            if (self.currentUser) {
-                getCurrentUserInfo();
-                self.signInTitle = "Log out";
-            }
-        }
+        readTodoList();
 
         /**
          * Read the to do list from the database
@@ -54,7 +40,8 @@
          */
         self.updateTodo = function (todo){
             clearError();
-            TodoService.update(todo.Id, todo).then(null, errorHandler);
+            TodoService.update(todo.id, todo)
+              .then(null, errorHandler);
         };
 
         /**
@@ -62,7 +49,8 @@
          */
         self.addTodo = function () {
             clearError();
-            TodoService.create({ description: self.todo, createdBy: self.currentUserInfo.Id }).then(onAddTodoSuccess, errorHandler);
+            TodoService.create(self.todo)
+              .then(onAddTodoSuccess, errorHandler);
             self.todo = '';
         };
 
@@ -80,37 +68,32 @@
          */
         self.removeTodo = function (todo) {
             clearError();
-            TodoService.delete(todo.Id).then(function () {
+            TodoService.delete(todo.id).then(function () {
                 self.todos.splice(self.todos.indexOf(todo), 1);
             }, errorHandler);
         };
 
         /**
-         * Logout from Backand
-         */
-        self.logout = function () {
-            TodoService.logout();
-            $state.go('login');
-        }
-
-        /**
-         * Handle promise error call
+         * Handle promise error call.
+         * Error object may have the error message in 'data' property, or in 'data.Message'.
          * @param error
          * @param message
          */
         function errorHandler(error) {
-            console.log(error);
             if (error) {
-                if (error.data && error.data.split) {
-                    var msg = error.data.split(':');
-                    self.error = msg[msg.length - 1];
-                }
-                else {
+                if (error.data) {
+                    if (error.data.split) {
+                        var msg = error.data.split(':');
+                        self.error = msg[msg.length - 1];
+                    } else if (error.data.Message) {
+                        self.error = error.data.Message;
+                    }
+                } else {
                     self.error = JSON.stringify(error);
                 }
-            }
-            else {
-                self.error == "Unexpected failure";
+
+            } else {
+                self.error = "Unexpected failure";
             }
         }
 
@@ -118,24 +101,6 @@
             self.error = null;
         }
 
-        function getCurrentUserInfo() {
-            return TodoService.getCurrentUserInfo().then(function (data) {
-                self.currentUserInfo = data;
-            });
-        }
-
-        self.getCurrentUserName = function () {
-            if (!self.currentUser)
-                return "Guest";
-            if (self.currentUserInfo)
-                return self.currentUserInfo.name;
-            else
-                return null;
-            
-        }
-
-        
-        init();
     }
 
 })();
