@@ -9,13 +9,15 @@ angular.module('mytodoApp', [
   'LocalStorageModule',
   'mytodoApp.config.interceptors',
   'mytodoApp.config.consts',
-  'backand'
+  'backand',
+  'satellizer'
 ])
-  .config(['$stateProvider', '$httpProvider', '$urlRouterProvider', 'BackandProvider',
-    function ($stateProvider, $httpProvider, $urlRouterProvider, BackandProvider) {
+  .config(['$stateProvider', '$httpProvider', '$urlRouterProvider', 'BackandProvider', 'CONSTS',
+    function ($stateProvider, $httpProvider, $urlRouterProvider, BackandProvider, CONSTS) {
       BackandProvider.manageDefaultHeaders();
-      BackandProvider.setAnonymousToken('39b0464b-1e40-45c6-8a96-ec7d5622c4b1');
-      BackandProvider.setSignUpToken('7fa6102a-58df-4c0b-93af-c39e3d67dcb7');
+      BackandProvider.setAnonymousToken(CONSTS.anonymousToken);
+      BackandProvider.setSignUpToken(CONSTS.signUpToken);
+      BackandProvider.setAppName(CONSTS.appName);
 
       $httpProvider.interceptors.push('todoHttpInterceptor');
 
@@ -53,4 +55,21 @@ angular.module('mytodoApp', [
           templateUrl: 'views/auth/reset-password.html',
           controller: 'ResetPasswordCtrl as resetPassword'
         });
-    }]);
+    }])
+  .config(function($authProvider) {
+
+    $authProvider.facebook({
+      clientId: '624059410963642'
+    });
+
+    $authProvider.google({
+      clientId: '701238333050-gk8n3m7aar07hkhm6jucontidpha1mqd.apps.googleusercontent.com'
+    });
+
+    $authProvider.github({
+      clientId: '0ba2600b1dbdb756688b'
+    });
+
+    //$authProvider.baseUrl = 'https://backand.com/apps/'
+    //$authProvider.signupRedirect = '';
+  });

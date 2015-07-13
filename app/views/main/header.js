@@ -13,9 +13,7 @@
   function HeaderCtrl($state, AuthService) {
     var self = this;
 
-    self.currentUser = AuthService.currentUser.name;
-
-    self.UserDetails =  AuthService.currentUser;
+    self.currentUser =  AuthService.currentUser;
 
     /**
      * Logout from Backand

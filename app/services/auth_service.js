@@ -1,19 +1,18 @@
 (function () {
-
   angular.module('mytodoApp')
-    .service('AuthService', ['CONSTS', '$http', '$cookieStore', '$q', 'Backand', AuthService]);
+    .service('AuthService', ['CONSTS', '$http', '$cookieStore', 'Backand', AuthService]);
 
-  function AuthService(CONSTS, $http, $cookieStore, $q, Backand) {
+  function AuthService(CONSTS, $http, $cookieStore, Backand) {
 
     var self = this;
     var baseUrl = Backand.getApiUrl() + '/1/objects/';
     self.appName = CONSTS.appName || '';
     self.currentUser = {};
 
-    getUserDetails();
+    loadUserDetails();
 
-    function getUserDetails () {
-      self.currentUser.name = getCurrentUser();
+    function loadUserDetails () {
+      self.currentUser.name = Backand.getUsername();
       if (self.currentUser.name) {
         getCurrentUserInfo()
           .then(function (data) {
@@ -22,6 +21,22 @@
       }
     }
 
+    self.socialSignIn = function (provider) {
+      return Backand.socialSignIn(provider)
+        .then(function (response) {
+          loadUserDetails();
+          return response;
+        });
+    };
+
+    self.socialSignUp = function (provider) {
+      return Backand.socialSignUp(provider)
+        .then(function (response) {
+          loadUserDetails();
+          return response;
+        });
+    };
+
     self.setAppName = function (newAppName) {
       self.appName = newAppName;
     };
@@ -29,34 +44,25 @@
     self.signIn = function (username, password) {
       return Backand.signin(username, password, self.appName)
         .then(function (response) {
-          $cookieStore.put('username', username);
-          getUserDetails();
+          loadUserDetails();
           return response;
         });
     };
 
     self.signUp = function (firstName, lastName, username, password) {
-      var deferred = $q.defer();
-      Backand.signup(firstName, lastName, username, password, password)
+      return Backand.signup(firstName, lastName, username, password, password)
         .then(function (signUpResponse) {
 
           if (signUpResponse.data.currentStatus === 1) {
-            self.signIn(username, password)
-              .then(function (signInResponse) {
-                deferred.resolve(signUpResponse);
-              }, function (error) {
-                deferred.reject(error)
+            return self.signIn(username, password)
+              .then(function () {
+                return signUpResponse;
               });
 
           } else {
-            deferred.resolve(signUpResponse);
+            return signUpResponse;
           }
-        },
-        function (error) {
-          deferred.reject(error);
         });
-
-      return deferred.promise;
     };
 
     self.changePassword = function (oldPassword, newPassword) {
@@ -77,10 +83,6 @@
         angular.copy({}, self.currentUser);
       });
     };
-
-    function getCurrentUser () {
-      return $cookieStore.get('username');
-    }
 
     function getCurrentUserInfo () {
       return $http({

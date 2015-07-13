@@ -16,8 +16,7 @@
         self.readAll = function () {
             return $http({
                 method: 'GET',
-                url: baseUrl + tableName,
-                headers: {AppName: AuthService.appName}
+                url: baseUrl + tableName
             }).then(function(response) {
                 return response.data.data;
             });

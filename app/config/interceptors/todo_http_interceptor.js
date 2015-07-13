@@ -12,7 +12,7 @@
       responseError: function (rejection) {
         if ((rejection.config.url + "").indexOf('token') === -1) {
           if (rejection.status === 401) {
-            $injector.get('$state').transitionTo('login', {error: 'The session has expired, please sign in again.'});
+            $injector.get('$state').go('login', {error: 'The session has expired, please sign in again.'}, {reload: true});
             $injector.get('AuthService').logout();
           }
         }

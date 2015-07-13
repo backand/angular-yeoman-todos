@@ -1,7 +1,9 @@
 (function() {
   angular.module('mytodoApp.config.consts', [])
     .constant('CONSTS', {
-      appName: 'todowithusers36707'
+      anonymousToken: null,
+      signUpToken: null,
+      appName: null
     });
 
 })();

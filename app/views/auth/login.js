@@ -15,6 +15,7 @@
     var self = this;
 
     self.appName = CONSTS.appName;
+    self.appNameExists = !!self.appName;
     self.error = $state.params.error;
 
     self.authenticate = function () {
@@ -64,6 +65,25 @@
     function showError (error) {
       self.error = error && error.data || 'Unknown error from server';
     }
+
+    self.socialSignIn = function(provider) {
+      AuthService.socialSignIn(provider)
+        .then( function () {
+          $state.go('todos');
+        },
+        showError
+        );
+    };
+
+    self.socialSignUp = function(provider) {
+      AuthService.socialSignUp(provider)
+        .then( function () {
+          $state.go('todos');
+        },
+        showError
+      );
+    };
+
   }
 
 
