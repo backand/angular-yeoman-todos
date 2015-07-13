@@ -9,8 +9,7 @@ angular.module('mytodoApp', [
   'LocalStorageModule',
   'mytodoApp.config.interceptors',
   'mytodoApp.config.consts',
-  'backand',
-  'satellizer'
+  'backand'
 ])
   .config(['$stateProvider', '$httpProvider', '$urlRouterProvider', 'BackandProvider', 'CONSTS',
     function ($stateProvider, $httpProvider, $urlRouterProvider, BackandProvider, CONSTS) {
@@ -55,21 +54,4 @@ angular.module('mytodoApp', [
           templateUrl: 'views/auth/reset-password.html',
           controller: 'ResetPasswordCtrl as resetPassword'
         });
-    }])
-  .config(function($authProvider) {
-
-    $authProvider.facebook({
-      clientId: '624059410963642'
-    });
-
-    $authProvider.google({
-      clientId: '701238333050-gk8n3m7aar07hkhm6jucontidpha1mqd.apps.googleusercontent.com'
-    });
-
-    $authProvider.github({
-      clientId: '0ba2600b1dbdb756688b'
-    });
-
-    //$authProvider.baseUrl = 'https://backand.com/apps/'
-    //$authProvider.signupRedirect = '';
-  });
+    }]);
