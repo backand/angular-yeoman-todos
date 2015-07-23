@@ -7,12 +7,12 @@
      * # LoginCtrl
      * Backand login control - need to implement in order to get the token for authentication
      */
-    function LoginCtrl(Backand, $cookieStore, $location) {
+    function LoginCtrl(Backand, $location) {
         var self = this;
         function init() {
-            self.username = 'guest@backand.com';
-            self.password = 'guest1234';
-            self.appName  = 'prod1103';
+            self.username = '';
+            self.password = '';
+            self.appName  = '';
         }
 
         self.signIn = function() {
