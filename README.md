@@ -16,7 +16,7 @@ To get the application running, perform the following steps:
 ```json
 [
   {
-    "name": "items",
+    "name": "todo",
     "fields": {
       "description": {
         "type": "string"
