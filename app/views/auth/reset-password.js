@@ -1,11 +1,11 @@
 'use strict';
-(function() {
+(function () {
     /**
      * @ngdoc function
-     * @name todoApp.controller:LoginCtrl
+     * @name todoApp.controller:ResetPasswordCtrl
      * @description
-     * # LoginCtrl
-     * Backand login control - need to implement in order to get the token for authentication
+     * # ResetPasswordCtrl
+     * Backand reset password controller - request change password link to be sent via email
      */
 
     angular.module('mytodoApp')
@@ -13,6 +13,7 @@
 
     function ResetPasswordCtrl(AuthService, $location, $state) {
         var self = this;
+
         function init() {
             self.token = $location.search().token;
             self.sendEmail = !angular.isDefined(self.token);
@@ -34,19 +35,19 @@
                 )
             }
             else {
-                if(self.newPassword != self.confirmPassword) {
+                if (self.newPassword != self.confirmPassword) {
                     self.error = 'Password must match';
                 }
                 else
                     AuthService.resetPassword(self.newPassword, self.token)
-                    .then(
-                    function () {
-                        $state.go('login');
-                    },
-                    function (response) {
-                        self.error = response && response.data || 'Unknown error from server';
-                    }
-                )
+                        .then(
+                        function () {
+                            $state.go('login');
+                        },
+                        function (response) {
+                            self.error = response && response.data || 'Unknown error from server';
+                        }
+                    )
             }
         };
 

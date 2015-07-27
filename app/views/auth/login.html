@@ -1,12 +1,27 @@
 <!-- Backand Login model -->
-<div class="header">
-    <h2>Backand Login</h2>
-    <h4>Use your Backand username and password to login<br>or
+<div>
+    <h2>Backand Sign In</h2>
+    <h4>Use your Backand username and password to sign in<br>or
     <a ui-sref="todos">view the todo list as a guest (read only)</a></h4>
 </div>
 <div class="body">
     <form class="form" name="form" ng-submit="login.authenticate()" novalidate >
         <fieldset>
+
+            <div class="form-group">
+                <div class="checkbox">
+                    <label for="newUser">
+                        <input type="checkbox"
+                               name="newUser"
+                               id="newUser"
+                               placeholder="New User"
+                               ng-model="login.newUser"
+                               ng-model-options="{debounce: 200}">
+                        New User
+                    </label>
+                </div>
+            </div>
+
             <div class="form-group">
                 <input type="email"
                        class="form-control"
@@ -37,20 +52,6 @@
                        required>
             </div>
 
-            <div class="form-group">
-                <div class="checkbox">
-                    <label for="newUser">
-                        <input type="checkbox"
-                               class="form-control"
-                               name="newUser"
-                               id="newUser"
-                               placeholder="New User"
-                               ng-model="login.newUser"
-                               ng-model-options="{debounce: 200}"
-                               style="width:initial; height:initial;">New User
-                    </label>
-                </div>
-            </div>
             <div class="form-group">
                 <input type="text"
                        class="form-control"
@@ -89,10 +90,13 @@
     <div ng-show="login.error" class="alert alert-danger">{{login.error}}</div>
     <div ng-show="login.success" class="alert alert-success">{{login.success}}</div>
 </div>
-<button ng-click="login.socialSignIn('facebook')">Sign in with Facebook</button>
-<button ng-click="login.socialSignIn('google')">Sign in with Google</button>
-<button ng-click="login.socialSignIn('github')">Sign in with GitHub</button>
-<br/>
-<button ng-click="login.socialSignUp('facebook')">Sign up with Facebook</button>
-<button ng-click="login.socialSignUp('google')">Sign up with Google</button>
-<button ng-click="login.socialSignUp('github')">Sign up with GitHub</button>
+
+<div class="social-signin-block">
+    <h4>or Sign {{login.newUser ? 'Up' : 'In'}} with:</h4>
+    <a class="btn btn-block btn-social"
+       ng-repeat="(providerKey, providerDetails) in login.socialProviders"
+       ng-class="'btn-' + providerDetails.name"
+       ng-click="login.socialSignIn(providerDetails)">
+        <i class="fa" ng-class="'fa-' + providerDetails.css"></i> {{providerDetails.label}}
+    </a>
+</div>

@@ -81,3 +81,7 @@ body {
 .todo-completed, .todo-completed input {
   text-decoration: line-through;
 }
+
+.social-signin-block {
+  width: 160px;
+}

@@ -1,11 +1,11 @@
 'use strict';
-(function() {
+(function () {
     /**
      * @ngdoc function
-     * @name todoApp.controller:MainCtrl
+     * @name todoApp.controller:TodoListCtrl
      * @description
-     * # MainCtrl
-     * Main controller of the todoApp fot viewing and adding to do items
+     * # TodoListCtrl
+     * Todo List controller of the todoApp for viewing and adding to do items
      */
     angular.module('mytodoApp')
         .controller('TodoListCtrl', ['TodoService', TodoListCtrl]);
@@ -30,7 +30,7 @@
          * Success promise call with the lit data
          * @param data
          */
-        function onReadListSuccess(todos){
+        function onReadListSuccess(todos) {
             self.todos = todos;
         }
 
@@ -38,10 +38,10 @@
          * Update item in the database
          * @param todo
          */
-        self.updateTodo = function (todo){
+        self.updateTodo = function (todo) {
             clearError();
             TodoService.update(todo.id, todo)
-              .then(null, errorHandler);
+                .then(null, errorHandler);
         };
 
         /**
@@ -50,7 +50,7 @@
         self.addTodo = function () {
             clearError();
             TodoService.create(self.todo)
-              .then(onAddTodoSuccess, errorHandler);
+                .then(onAddTodoSuccess, errorHandler);
             self.todo = '';
         };
 
@@ -58,7 +58,7 @@
          * Success promise call with the new item added
          * @param data
          */
-        function onAddTodoSuccess(todo){
+        function onAddTodoSuccess(todo) {
             self.todos.push(todo);
         }
 
