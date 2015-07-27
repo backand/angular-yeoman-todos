@@ -37,7 +37,7 @@
                 url : baseUrl + tableName,
                 data: {
                     description: description,
-                    createdBy: AuthService.currentUser.details.id },
+                    createdBy: AuthService.currentUser.details ? AuthService.currentUser.details.id : 'Anonymous' },
                 params: {
                     returnObject: true
                 }
