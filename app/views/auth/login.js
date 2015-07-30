@@ -33,7 +33,7 @@
         };
 
         self.signUp = function () {
-            AuthService.signUp(self.firstName, self.lastName, self.username, self.password)
+            AuthService.signUp(self.firstName, self.lastName, self.username, self.password, self.appName)
                 .then(
                 function (response) {
                     //check status of the sign in
@@ -64,7 +64,7 @@
         };
 
         function showError(error) {
-            self.error = error && error.data || 'Unknown error from server';
+            self.error = error && error.data || error.error_description || 'Unknown error from server';
         }
 
         function gotoTodos() {
@@ -73,9 +73,9 @@
 
         self.socialSignIn = function (provider) {
             self.newUser ?
-                AuthService.socialSignUp(provider.name)
+                AuthService.socialSignUp(provider.name, self.appName)
                     .then(gotoTodos, showError) :
-                AuthService.socialSignIn(provider.name)
+                AuthService.socialSignIn(provider.name, self.appName)
                     .then(gotoTodos, showError);
         };
 
