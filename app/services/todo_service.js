@@ -60,7 +60,6 @@
 
         self.logout = function(){
             Backand.signout();
-            $cookieStore.remove(Backand.tokenName);
         }
 
     }

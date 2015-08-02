@@ -16,7 +16,11 @@
         }
 
         self.signIn = function() {
-            Backand.signin(self.username, self.password, self.appName)
+            //set the your app name
+            Backand.setAppName(self.appName);
+
+            //sign in to Backand
+            Backand.signin(self.username, self.password)
                 .then(
                 function () {
                     $location.path('/');
