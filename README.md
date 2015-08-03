@@ -141,7 +141,7 @@ At this point, when new users sign in they will have full access to the applicat
     // if the current user has an *Admin* role then she is allowed to create a todo for another user
     if (userProfile.role == "Admin")
 	    return {};
-    var createdByFromInput = userInput.createdBy;
+    var createdByFromInput = userInput.created_By;
     // do not allow anonymous users to create a todo
     if (!createdByFromInput)
         throw new Error('The creator of the todo is unknown.');
@@ -186,11 +186,11 @@ A similar modification needs to be made for when a *todo* item is updated. The o
     // if the current user has an *Admin* role then he is allowed to update a todo for other users
     if (userProfile.role == "Admin")
 	    return {};
-    var createdByFromInput = userInput.createdBy;
+    var createdByFromInput = userInput.created_By;
     // do not allow anonymous users to create a todo
     if (!createdByFromInput)
         throw new Error('The creator of the todo is unknown.');
-    var createdByFromRow = dbRow.createdBy;
+    var createdByFromRow = dbRow.created_By;
     if (!createdByFromRow)
         throw new Error('The creator of the todo is unknown.');
     var currentUsername = userProfile.username;
@@ -236,7 +236,7 @@ There is no user input for delete requests, so you only need to verify that the 
     // if the current user has an *Admin* role then he is allowed to delete a todo that was created by other users
     if (userProfile.role == "Admin")
 	    return {};
-    var createdByFromRow = dbRow.createdBy;
+    var createdByFromRow = dbRow.created_By;
     if (!createdByFromRow)
         throw new Error('The creator of the todo is unknown.');
     var currentUsername = userProfile.username;

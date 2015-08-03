@@ -28,7 +28,7 @@
                     ng-disabled="todo.completed"
                     ng-model="todo.description"
                     ng-change="todoList.updateTodo(todo)"
-                    ng-model-options="{updateOn: 'blur'}"
+                    ng-model-options="{updateOn: 'default blur', debounce: {'default': 300, 'blur': 0}}"
                     class="form-control" >
             <span class="input-group-btn">
                 <button class="btn btn-danger" ng-click="todoList.removeTodo(todo)" aria-label="Remove">X</button>

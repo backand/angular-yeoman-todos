@@ -25,16 +25,16 @@
             return Backand.getSocialProviders()
         };
 
-        self.socialSignIn = function (provider, appName) {
-            return Backand.socialSignIn(provider, appName)
+        self.socialSignIn = function (provider) {
+            return Backand.socialSignIn(provider)
                 .then(function (response) {
                     loadUserDetails();
                     return response;
                 });
         };
 
-        self.socialSignUp = function (provider, appName) {
-            return Backand.socialSignUp(appName)
+        self.socialSignUp = function (provider) {
+            return Backand.socialSignUp(provider)
                 .then(function (response) {
                     loadUserDetails();
                     return response;
@@ -54,11 +54,11 @@
         };
 
         self.signUp = function (firstName, lastName, username, password, appName) {
-            return Backand.signup(firstName, lastName, username, password, password, appName)
+            return Backand.signup(firstName, lastName, username, password, password)
                 .then(function (signUpResponse) {
 
                     if (signUpResponse.data.currentStatus === 1) {
-                        return self.signIn(username, password)
+                        return self.signIn(username, password, appName)
                             .then(function () {
                                 return signUpResponse;
                             });

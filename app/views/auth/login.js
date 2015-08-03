@@ -9,12 +9,12 @@
      */
 
     angular.module('mytodoApp')
-        .controller('LoginCtrl', ['AuthService', 'CONSTS', '$state', LoginCtrl]);
+        .controller('LoginCtrl', ['AuthService', '$state', LoginCtrl]);
 
-    function LoginCtrl(AuthService, CONSTS, $state) {
+    function LoginCtrl(AuthService, $state) {
         var self = this;
 
-        self.appName = CONSTS.appName;
+        self.appName = AuthService.appName;
         self.appNameExists = !!self.appName;
         self.error = $state.params.error;
         self.socialProviders = AuthService.getSocialProviders();
@@ -73,9 +73,9 @@
 
         self.socialSignIn = function (provider) {
             self.newUser ?
-                AuthService.socialSignUp(provider.name, self.appName)
+                AuthService.socialSignUp(provider.name)
                     .then(gotoTodos, showError) :
-                AuthService.socialSignIn(provider.name, self.appName)
+                AuthService.socialSignIn(provider.name)
                     .then(gotoTodos, showError);
         };
 
