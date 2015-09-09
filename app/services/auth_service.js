@@ -1,8 +1,8 @@
 (function () {
     angular.module('mytodoApp')
-        .service('AuthService', ['CONSTS', '$http', '$cookieStore', 'Backand', AuthService]);
+        .service('AuthService', ['CONSTS', '$http', 'Backand', AuthService]);
 
-    function AuthService(CONSTS, $http, $cookieStore, Backand) {
+    function AuthService(CONSTS, $http, Backand) {
 
         var self = this;
         var baseUrl = Backand.getApiUrl() + '/1/objects/';
@@ -83,7 +83,6 @@
 
         self.logout = function () {
             Backand.signout().then(function () {
-                $cookieStore.remove('username');
                 angular.copy({}, self.currentUser);
             });
         };
