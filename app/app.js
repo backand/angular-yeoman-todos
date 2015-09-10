@@ -12,7 +12,7 @@ angular.module('mytodoApp', [
 ])
     .config(['$stateProvider', '$httpProvider', '$urlRouterProvider', 'BackandProvider', 'CONSTS',
         function ($stateProvider, $httpProvider, $urlRouterProvider, BackandProvider, CONSTS) {
-            BackandProvider.manageDefaultHeaders();
+
             BackandProvider.setAnonymousToken(CONSTS.anonymousToken);
             BackandProvider.setSignUpToken(CONSTS.signUpToken);
             BackandProvider.setAppName(CONSTS.appName);
