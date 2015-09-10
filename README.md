@@ -96,7 +96,7 @@ Open your application in [Backand](https://www.backand.com/apps).
 
 2. **Enable Sign Up and Set the New Users Role** 
 	1. Select *User* from the dropdown beneath the *Public App* heading. This will set the role that new users are given when they sign up for - or are created in - your application. By setting this to *User*, all new users will be created with the *User* role already assigned. 
-	2. Copy the API Sign-up Token and paste it in app/config/consts.js as the value of signUpToken.
+	2. Go to the *Security & Auth --> Social & Keys* page. Copy the API Sign-up Token and paste it in app/config/consts.js as the value of signUpToken.
 3. **Enable Public Sign Up** (optional)
 	Click on the switch on the right side of the panel to make your application Public. When enabled, this allows any user to register with your application. When disabled, all new users must be invited by a user with the *Admin* role (via the Security & Auth -> Registered Users section). This switch between *Public* and *Private* modes does not require a code change - it happens behind the scenes.
 4. **Configure Authentication URLs** (optional)
