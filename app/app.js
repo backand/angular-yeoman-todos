@@ -13,10 +13,10 @@ angular.module('mytodoApp', [
     .config(['$stateProvider', '$httpProvider', '$urlRouterProvider', 'BackandProvider', 'CONSTS',
         function ($stateProvider, $httpProvider, $urlRouterProvider, BackandProvider, CONSTS) {
 
-            BackandProvider.setAnonymousToken(CONSTS.anonymousToken);
-            BackandProvider.setSignUpToken(CONSTS.signUpToken);
-            BackandProvider.setAppName(CONSTS.appName);
-            BackandProvider.runSigninAfterSignup(false);
+            BackandProvider.setAnonymousToken(CONSTS.anonymousToken)
+                .setSignUpToken(CONSTS.signUpToken)
+                .setAppName(CONSTS.appName)
+                .runSigninAfterSignup(false);
 
             $httpProvider.interceptors.push('todoHttpInterceptor');
 
