@@ -23,7 +23,9 @@
             self.error = null;
             self.success = null;
 
-            AuthService.setAppName(self.appName);
+            if (!self.appNameExists) {
+                AuthService.setAppName(self.appName);
+            }
 
             if (self.newUser) {
                 self.signUp();
@@ -33,7 +35,7 @@
         };
 
         self.signUp = function () {
-            AuthService.signUp(self.firstName, self.lastName, self.username, self.password, self.appName)
+            AuthService.signUp(self.firstName, self.lastName, self.username, self.password)
                 .then(
                 function (response) {
                     //check status of the sign in
@@ -53,7 +55,7 @@
         };
 
         self.signIn = function () {
-            AuthService.signIn(self.username, self.password, self.appName)
+            AuthService.signIn(self.username, self.password)
                 .then(
                 function () {
                     $state.go('todos');
@@ -72,6 +74,10 @@
         }
 
         self.socialSignIn = function (provider) {
+            if (!self.appNameExists) {
+                AuthService.setAppName(self.appName);
+            }
+
             self.newUser ?
                 AuthService.socialSignUp(provider.name)
                     .then(gotoTodos, showError) :

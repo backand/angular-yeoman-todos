@@ -43,22 +43,23 @@
 
         self.setAppName = function (newAppName) {
             self.appName = newAppName;
+            Backand.setAppName(newAppName);
         };
 
-        self.signIn = function (username, password, appName) {
-            return Backand.signin(username, password, appName)
+        self.signIn = function (username, password) {
+            return Backand.signin(username, password)
                 .then(function (response) {
                     loadUserDetails();
                     return response;
                 });
         };
 
-        self.signUp = function (firstName, lastName, username, password, appName) {
+        self.signUp = function (firstName, lastName, username, password) {
             return Backand.signup(firstName, lastName, username, password, password)
                 .then(function (signUpResponse) {
 
                     if (signUpResponse.data.currentStatus === 1) {
-                        return self.signIn(username, password, appName)
+                        return self.signIn(username, password)
                             .then(function () {
                                 return signUpResponse;
                             });
@@ -74,7 +75,7 @@
         };
 
         self.requestResetPassword = function (username) {
-            return Backand.requestResetPassword(username, self.appName)
+            return Backand.requestResetPassword(username)
         };
 
         self.resetPassword = function (password, token) {
