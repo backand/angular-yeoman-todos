@@ -3,7 +3,7 @@
  */
 (function () {
 
-    function TodoService($http, $cookieStore, Backand) {
+    function TodoService($http, Backand) {
 
         var self = this;
         var baseUrl = '/1/objects/';
@@ -65,5 +65,5 @@
     }
 
     angular.module('mytodoApp')
-        .service('TodoService', ['$http', '$cookieStore', 'Backand', TodoService]);
+        .service('TodoService', ['$http', 'Backand', TodoService]);
 }());

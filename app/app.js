@@ -1,7 +1,6 @@
 'use strict';
 
 angular.module('mytodoApp', [
-  'ngCookies',
   'ngResource',
   'ngSanitize',
   'ui.router',
@@ -11,7 +10,6 @@ angular.module('mytodoApp', [
   'backand'
 ])
   .config(['$stateProvider','$httpProvider', '$urlRouterProvider', 'BackandProvider', function($stateProvider, $httpProvider, $urlRouterProvider, BackandProvider) {
-    BackandProvider.manageDefaultHeaders();
     //BackandProvider.setAnonymousToken('Your Anonymous Token');
     //BackandProvider.setSignUpToken('Your SignUp Token');
 
