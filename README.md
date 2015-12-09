@@ -1,6 +1,9 @@
 # Todo Project
 A simple website demonstrating CRUD with Backand, built using [yeoman](http://yeoman.io/) for Angular
 
+## Example
+You can review the exmaple @ [codepen](http://codepen.io/backand/pen/OyKxOB)
+
 ## Prerequisites
 You will need:
 * [Git](http://git-scm.com/)
