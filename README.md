@@ -2,7 +2,7 @@
 A simple website demonstrating CRUD with Backand, built using [yeoman](http://yeoman.io/) for Angular
 
 ## Example
-You can review the exmaple @ [codepen](http://codepen.io/backand/pen/OyKxOB)
+You can review the example @ [codepen](http://codepen.io/backand/pen/OyKxOB)
 
 ## Prerequisites
 You will need:
