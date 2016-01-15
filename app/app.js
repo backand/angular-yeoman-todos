@@ -5,7 +5,6 @@ angular.module('mytodoApp', [
   'ngSanitize',
   'ui.router',
   'ui.sortable',
-  'LocalStorageModule',
   'mytodoApp.config.interceptors',
   'backand'
 ])
