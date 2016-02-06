@@ -1,8 +1,8 @@
 # Todo Project
-A simple website demonstrating CRUD with Backand, built using [yeoman](http://yeoman.io/) for Angular
+A simple website demonstrating CRUD with Backand, built using [Yeoman](http://yeoman.io/) for Angular
 
 ## Example
-You can review the example @ [codepen](http://codepen.io/backand/pen/OyKxOB)
+We've provided a quick summary of the changes necessary to get this app working at [codepen](http://codepen.io/backand/pen/OyKxOB).
 
 ## Prerequisites
 You will need:
@@ -44,12 +44,12 @@ To get the application running, perform the following steps:
 
 4. Navigate to [localhost:9000](http://localhost:9000).
 
-5. Hooray! Now you can interact with API running on Backand! How simple was that??
+Now you can interact with your Backand-powered API! New items will be automatically populated in the Backand database behind your application, and instantly available for usage. How simple was that?
 
 ## Testing
 
-Running `grunt test` will run the unit tests with karma.
+Running `grunt test` will run the unit tests, which were built using Karma.
 
 ### Running your own API server
 
-If you would like to run your own api, then sign-up to [Backand](https://wwww.backand.com) and create new app
+This app uses a default Backand account. If you'd like to start with your own, private API, create your account at [Backand](https://wwww.backand.com), then create a new app. You'll need to update the code to specify your Backand app name - look for lines that reference `Backand.setAppName()` - this is used by backand.js to connect your app to your API on Backand's servers.
